@@ -1,0 +1,20 @@
+{
+  "short_name": "O_C Creative",
+  "name": "Omkar Chandra — Creative Designer & Video Editor",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "LOGO.webp",
+      "type": "image/webp",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#050505",
+  "background_color": "#050505"
+}
