@@ -53,6 +53,5 @@ npm run build   # Production build
 
 ## Contact
 
-**Email:** omkarchandra.9096@gmail.com  
 **Instagram:** [@omkar_chandra](https://instagram.com/omkar_chandra)  
 **LinkedIn:** [Omkar Chandra Gour](https://www.linkedin.com/in/omkar-chandra-gour-09a556319/)
