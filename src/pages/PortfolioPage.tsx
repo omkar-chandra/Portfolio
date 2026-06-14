@@ -10,8 +10,8 @@ const CATEGORIES = ['all', 'poster', 'video', 'logo'] as const;
 /* ── Video Section: structured 3-row layout ────────────────────────── */
 const VideoSection: FC<{ videos: Project[]; onViewAll: (() => void) | null }> = ({ videos, onViewAll }) => {
   const ytOriginal = videos.filter((v) => !v.tags.includes('Short-form') && v.id <= 34);
-  const ytNew      = videos.filter((v) => !v.tags.includes('Short-form') && v.id >= 35);
-  const shorts     = videos.filter((v) => v.tags.includes('Short-form'));
+  const ytNew = videos.filter((v) => !v.tags.includes('Short-form') && v.id >= 35);
+  const shorts = videos.filter((v) => v.tags.includes('Short-form'));
 
   return (
     <div className="portfolio-section">
@@ -45,7 +45,7 @@ const VideoSection: FC<{ videos: Project[]; onViewAll: (() => void) | null }> = 
 };
 
 const PortfolioPage: FC = () => {
-  const [filter, setFilter]                 = useState<string>('all');
+  const [filter, setFilter] = useState<string>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const location = useLocation();
 
@@ -97,8 +97,8 @@ const PortfolioPage: FC = () => {
               {filter === 'all' ? (
                 <div className="portfolio-sections">
                   {[
-                    { title: 'Poster Design',   items: projects.filter((p) => p.category === 'poster'), cat: 'poster' },
-                    { title: 'Logo & Branding', items: projects.filter((p) => p.category === 'logo'),   cat: 'logo'   },
+                    { title: 'Poster Design', items: projects.filter((p) => p.category === 'poster'), cat: 'poster' },
+                    { title: 'Logo & Branding', items: projects.filter((p) => p.category === 'logo'), cat: 'logo' },
                   ].map((section) => (
                     <div className="portfolio-section" key={section.cat}>
                       <div className="portfolio-section__header">
@@ -142,29 +142,29 @@ const PortfolioPage: FC = () => {
               <button className="project-modal__close" onClick={() => setSelectedProject(null)} data-cursor="Close" aria-label="Close project modal">✕</button>
 
               <div className="project-modal__media-container">
-                  {selectedProject.video ? (() => {
-                    const vert    = isVerticalVideo(selectedProject);
-                    const aspect  = vert ? 'modal-media--9-16' : 'modal-media--16-9';
-                    return (
-                      <div className={`project-modal__media-wrapper ${aspect}`} style={{ maxHeight: '75vh', width: 'auto', maxWidth: '100%', margin: '0 auto' }}>
-                        <video src={selectedProject.video} autoPlay loop playsInline controls controlsList="nodownload" disablePictureInPicture onContextMenu={(e) => e.preventDefault()} className="project-modal__video" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} />
-                      </div>
-                    );
-                  })() : (
-                    <div className="project-modal__3d-wrap" style={{ width: '100%', height: '100%' }}>
-                      <div className="project-modal__media-wrapper modal-media--1-1" style={{ width: '100%' }}>
-                        <img src={selectedProject.image} alt={selectedProject.title} className="project-modal__image" />
-                      </div>
+                {selectedProject.video ? (() => {
+                  const vert = isVerticalVideo(selectedProject);
+                  const aspect = vert ? 'modal-media--9-16' : 'modal-media--16-9';
+                  return (
+                    <div className={`project-modal__media-wrapper ${aspect}`} style={{ maxHeight: '75vh', width: 'auto', maxWidth: '100%', margin: '0 auto' }}>
+                      <video src={selectedProject.video} autoPlay loop playsInline controls controlsList="nodownload" disablePictureInPicture onContextMenu={(e) => e.preventDefault()} className="project-modal__video" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} />
                     </div>
-                  )}
+                  );
+                })() : (
+                  <div className="project-modal__3d-wrap" style={{ width: '100%', height: '100%' }}>
+                    <div className="project-modal__media-wrapper modal-media--1-1" style={{ width: '100%' }}>
+                      <img src={selectedProject.image} alt={selectedProject.title} className="project-modal__image" />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {!selectedProject.video && (
-              <div className="project-modal__body">
-                <motion.div className="project-modal__title-shape" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                  <h2 className="project-modal__title">{selectedProject.title}</h2>
-                </motion.div>
-              </div>
+                <div className="project-modal__body">
+                  <motion.div className="project-modal__title-shape" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                    <h2 className="project-modal__title">{selectedProject.title}</h2>
+                  </motion.div>
+                </div>
               )}
             </motion.div>
           </motion.div>
