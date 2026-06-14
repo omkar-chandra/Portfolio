@@ -1,11 +1,48 @@
 import React, { FC, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-import { GlassButton, Hover3DCard, FloatingShapes, PageTransition, ProjectCard } from '../components';
+import { GlassButton, FloatingShapes, PageTransition, ProjectCard } from '../components';
 import { projects, isVerticalVideo } from '../data';
 import { Project } from '../types';
 
 const CATEGORIES = ['all', 'poster', 'video', 'logo'] as const;
+
+/* ── Video Section: structured 3-row layout ────────────────────────── */
+const VideoSection: FC<{ videos: Project[]; onViewAll: (() => void) | null }> = ({ videos, onViewAll }) => {
+  const ytOriginal = videos.filter((v) => !v.tags.includes('Short-form') && v.id <= 34);
+  const ytNew      = videos.filter((v) => !v.tags.includes('Short-form') && v.id >= 35);
+  const shorts     = videos.filter((v) => v.tags.includes('Short-form'));
+
+  return (
+    <div className="portfolio-section">
+      <div className="portfolio-section__header">
+        <h2 className="portfolio-section__title">Video Production</h2>
+        {onViewAll && (
+          <GlassButton variant="ghost" size="sm" onClick={onViewAll} className="section-load-more">
+            View All Videos ↗
+          </GlassButton>
+        )}
+      </div>
+
+      {/* Row 1 — Long-form YT (16:9), 3 cards */}
+      <div className="video-row video-row--wide">
+        {ytOriginal.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
+      </div>
+
+      {/* Row 2 — New YT videos, centered */}
+      {ytNew.length > 0 && (
+        <div className="video-row video-row--centered">
+          {ytNew.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
+        </div>
+      )}
+
+      {/* Row 3 — Shorts (9:16), rows of 3, last one centered */}
+      <div className="video-row video-row--shorts">
+        {shorts.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
+      </div>
+    </div>
+  );
+};
 
 const PortfolioPage: FC = () => {
   const [filter, setFilter]                 = useState<string>('all');
@@ -15,8 +52,9 @@ const PortfolioPage: FC = () => {
   const filtered = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
 
   useEffect(() => {
-    if (location.state?.projectId) {
-      const project = projects.find((p) => p.id === location.state.projectId);
+    const state = location.state as { projectId?: number } | null;
+    if (state?.projectId) {
+      const project = projects.find((p) => p.id === state.projectId);
       if (project) { setSelectedProject(project); window.history.replaceState({}, document.title); }
     }
   }, [location]);
@@ -59,9 +97,8 @@ const PortfolioPage: FC = () => {
               {filter === 'all' ? (
                 <div className="portfolio-sections">
                   {[
-                    { title: 'Poster Design',    items: projects.filter((p) => p.category === 'poster'), cat: 'poster' },
-                    { title: 'Logo & Branding',  items: projects.filter((p) => p.category === 'logo'),   cat: 'logo'   },
-                    { title: 'Video Production', items: projects.filter((p) => p.category === 'video'),  cat: 'video'  },
+                    { title: 'Poster Design',   items: projects.filter((p) => p.category === 'poster'), cat: 'poster' },
+                    { title: 'Logo & Branding', items: projects.filter((p) => p.category === 'logo'),   cat: 'logo'   },
                   ].map((section) => (
                     <div className="portfolio-section" key={section.cat}>
                       <div className="portfolio-section__header">
@@ -79,7 +116,12 @@ const PortfolioPage: FC = () => {
                       </div>
                     </div>
                   ))}
+
+                  {/* ── Video Production (structured layout) ── */}
+                  <VideoSection videos={projects.filter((p) => p.category === 'video')} onViewAll={() => setFilter('video')} />
                 </div>
+              ) : filter === 'video' ? (
+                <VideoSection videos={filtered} onViewAll={null} />
               ) : (
                 <div className="project-grid">
                   {filtered.map((project, i) => (
@@ -95,9 +137,9 @@ const PortfolioPage: FC = () => {
       {/* ── Project Modal ── */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div className="project-modal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProject(null)}>
+          <motion.div className="project-modal" role="dialog" aria-modal="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProject(null)}>
             <motion.div className="project-modal__content glass-card" initial={{ scale: 0.9, y: 50 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 50 }} transition={{ type: 'spring', damping: 25 }} onClick={(e) => e.stopPropagation()}>
-              <button className="project-modal__close" onClick={() => setSelectedProject(null)} data-cursor="Close">✕</button>
+              <button className="project-modal__close" onClick={() => setSelectedProject(null)} data-cursor="Close" aria-label="Close project modal">✕</button>
 
               <div className="project-modal__media-container">
                   {selectedProject.video ? (() => {
@@ -109,11 +151,11 @@ const PortfolioPage: FC = () => {
                       </div>
                     );
                   })() : (
-                    <Hover3DCard className="project-modal__3d-wrap" style={{ width: '100%', height: '100%' }}>
+                    <div className="project-modal__3d-wrap" style={{ width: '100%', height: '100%' }}>
                       <div className="project-modal__media-wrapper modal-media--1-1" style={{ width: '100%' }}>
                         <img src={selectedProject.image} alt={selectedProject.title} className="project-modal__image" />
                       </div>
-                    </Hover3DCard>
+                    </div>
                   )}
               </div>
 

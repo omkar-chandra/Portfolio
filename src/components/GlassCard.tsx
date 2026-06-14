@@ -32,14 +32,17 @@ const GlassCard: FC<Props> = ({ children, className = '', delay = 0, ...rest }) 
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       viewport={{ once: true, margin: '-50px' }}
-      style={{ transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
       {...rest}
     >
       <div
-        className="glass-card__glare"
-        style={{ background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.12) 0%, transparent 60%)` }}
-      />
-      {children}
+        style={{ transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transition: 'transform 0.1s ease' }}
+      >
+        <div
+          className="glass-card__glare"
+          style={{ background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.12) 0%, transparent 60%)` }}
+        />
+        {children}
+      </div>
     </motion.div>
   );
 };

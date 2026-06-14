@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SOCIALS = [
   { href: 'https://www.instagram.com/omkar_chandra',                   icon: '/Icon/instagram-icon.svg', label: 'Instagram', handle: '@omkar_chandra'    },
@@ -63,6 +63,7 @@ const Footer: FC = () => {
           className={`social-burger ${socialOpen ? 'social-burger--open' : ''}`}
           onClick={() => setSocialOpen(!socialOpen)}
           aria-label="Toggle social links"
+          aria-expanded={socialOpen}
         >
           <span className="social-burger__icon">
             <span className="social-burger__line" />
@@ -113,6 +114,7 @@ const Footer: FC = () => {
         whileHover={{ y: -5 }}
         whileTap={{ scale: 0.9 }}
         data-cursor="Top"
+        aria-label="Back to top"
       >
         ↑
       </motion.button>
@@ -123,9 +125,6 @@ const Footer: FC = () => {
           <p className="footer-copyright__text">
             © {currentYear} Made by me, Omkar Chandra. All rights reserved. <span className="footer-copyright__oc">oc</span>
           </p>
-          <Link to="/privacy" className="footer-copyright__link" data-cursor="Privacy">
-            Privacy Policy
-          </Link>
         </div>
       </div>
     </footer>

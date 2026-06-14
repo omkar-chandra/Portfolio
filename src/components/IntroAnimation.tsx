@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const IntroAnimation: FC<{ onComplete: () => void }> = ({ onComplete }) => {
@@ -15,25 +15,37 @@ const IntroAnimation: FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const nameFirst = 'OMKAR';
   const nameLast  = 'CHANDRA';
 
+  const particles = useMemo(() =>
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 3}s`,
+      duration: `${2 + Math.random() * 3}s`,
+    })),
+  []);
+
   return (
     <AnimatePresence>
       {!done && (
         <motion.div
           className="intro-overlay"
+          role="presentation"
+          aria-hidden="true"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Ambient particles */}
           <div className="intro-particles">
-            {Array.from({ length: 20 }).map((_, i) => (
+            {particles.map((p) => (
               <span
-                key={i}
+                key={p.id}
                 className="intro-particle"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${2 + Math.random() * 3}s`,
+                  left: p.left,
+                  top: p.top,
+                  animationDelay: p.delay,
+                  animationDuration: p.duration,
                 }}
               />
             ))}

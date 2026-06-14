@@ -33,7 +33,7 @@ export const experience: TimelineItem[] = [
       'Specializing in high-conversion promotional content and technical tutorial videos for the brand. Mastered a rapid post-production workflow that blends cinematic storytelling with AI-driven efficiency.',
   },
   {
-    year: '2025 — 2026',
+    year: '2025 — Present',
     title: 'Graphic Designer',
     subtitle: 'Zanthium Technosoft Pvt. Ltd. — Rudrapur, Uttarakhand',
     description:

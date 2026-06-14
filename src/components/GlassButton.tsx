@@ -57,7 +57,17 @@ const GlassButton: FC<Props> = ({
     </motion.button>
   );
 
-  return href ? <Link to={href}>{btn}</Link> : btn;
+  if (href) {
+    return (
+      <Link to={href} className={`glass-btn glass-btn--${variant} glass-btn--${size} ${className}`} data-cursor="Click">
+        <span className="glass-btn__bg" />
+        <span className="glass-btn__shine" />
+        <span className="glass-btn__content">{children}</span>
+      </Link>
+    );
+  }
+
+  return btn;
 };
 
 export default GlassButton;

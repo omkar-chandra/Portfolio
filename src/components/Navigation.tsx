@@ -24,6 +24,11 @@ const Navigation: FC = () => {
 
   useEffect(() => { setMenuOpen(false); }, [location]);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   return (
     <>
       <motion.nav
@@ -70,6 +75,7 @@ const Navigation: FC = () => {
               onClick={() => setMenuOpen(!menuOpen)}
               data-cursor="Menu"
               aria-label="Toggle menu"
+              aria-expanded={menuOpen}
             >
               <div className="nav-burger__line" />
               <div className="nav-burger__line" />

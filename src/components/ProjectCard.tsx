@@ -49,6 +49,9 @@ const ProjectCard: FC<Props> = ({ project, index }) => {
       viewport={{ once: true }}
       transition={{ delay: index * 0.08, duration: 0.6 }}
       data-cursor="View"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate('/portfolio', { state: { projectId: project.id } }); } }}
       style={{ '--card-glow': project.color1 } as React.CSSProperties}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

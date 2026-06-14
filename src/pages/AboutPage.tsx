@@ -146,9 +146,12 @@ const AboutPage: FC = () => {
               <div 
                 key={idx} 
                 className="pic-marquee__item"
+                role="button"
+                tabIndex={0}
                 onClick={() => setSelectedPic(src)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPic(src); } }}
               >
-                <img src={src} alt="Omkar Live" className="pic-marquee__img" loading="lazy" />
+                <img src={src} alt={`Omkar Chandra photo ${(idx % 8) + 1}`} className="pic-marquee__img" loading="lazy" />
               </div>
             ))}
           </div>
@@ -284,6 +287,7 @@ const AboutPage: FC = () => {
             <motion.button 
               className="pic-modal-close"
               onClick={() => setSelectedPic(null)}
+              aria-label="Close image viewer"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}

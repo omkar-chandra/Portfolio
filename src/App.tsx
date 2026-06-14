@@ -14,7 +14,6 @@ import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ContactPage from './pages/ContactPage';
-import PrivacyPage from './pages/PrivacyPage';
 
 // ── Smooth scroll lives in App root ──
 const AppRoot: FC = () => {
@@ -43,7 +42,6 @@ const AppRoot: FC = () => {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>

@@ -92,7 +92,7 @@ const ContactPage: FC = () => {
                     <BorderGlow className="contact-v2__input-glow" radius={180}>
                       <div className="contact-v2__input-wrap">
                         {inputIcon(<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>)}
-                        <select value={form.budget} onChange={set('budget')} required>
+                        <select value={form.budget} onChange={set('budget')} required aria-label="Budget range">
                           <option value="" disabled>Your Budget</option>
                           <option>Under $50</option>
                           <option>$50 – $100</option>
@@ -106,7 +106,7 @@ const ContactPage: FC = () => {
                     <BorderGlow className="contact-v2__input-glow" radius={180}>
                       <div className="contact-v2__input-wrap">
                         {inputIcon(<><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></>)}
-                        <select value={form.service} onChange={set('service')} required>
+                        <select value={form.service} onChange={set('service')} required aria-label="Project type">
                           <option value="" disabled>Project Type</option>
                           <option>Short/Reel Video Editing</option>
                           <option>Long Video Editing</option>
@@ -123,7 +123,7 @@ const ContactPage: FC = () => {
                   <BorderGlow className="contact-v2__input-glow contact-v2__textarea-glow" radius={250}>
                     <div className="contact-v2__input-wrap contact-v2__input-wrap--textarea">
                       {inputIcon(<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>)}
-                      <textarea placeholder="Tell me about your project..." rows={5} value={form.message} onChange={set('message')} required />
+                      <textarea placeholder="Tell me about your project..." rows={5} value={form.message} onChange={set('message')} required maxLength={500} />
                       <span className="contact-v2__charcount">{form.message.length}/500</span>
                     </div>
                   </BorderGlow>

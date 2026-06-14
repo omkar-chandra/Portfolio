@@ -1,13 +1,64 @@
 import React, { FC, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { GlassButton, GlassCard, FloatingShapes, PageTransition, ProjectCard } from '../components';
 import { projects } from '../data';
+
+/* ── Animated section divider ── */
+const SectionDivider: FC = () => (
+  <div className="section-divider">
+    <motion.div
+      className="section-divider__line"
+      initial={{ scaleX: 0 }}
+      whileInView={{ scaleX: 1 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+    />
+    <motion.div
+      className="section-divider__glow"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1.5, delay: 0.3 }}
+    />
+  </div>
+);
+
+/* ── Scroll-parallax text reveal ── */
+const ScrollRevealHeading: FC<{ label: string; title: string; thin: string }> = ({ label, title, thin }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const labelX = useTransform(scrollYProgress, [0, 0.4], [-60, 0]);
+  const labelOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0, 0.4], [80, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
+
+  return (
+    <div ref={ref} className="section-header section-header--center">
+      <motion.span className="section-label" style={{ x: labelX, opacity: labelOpacity }}>
+        <span className="section-label__line" />{label}
+      </motion.span>
+      <motion.h2 className="section-title" style={{ y: titleY, opacity: titleOpacity }}>
+        {title} <span className="text-thin">{thin}</span>
+      </motion.h2>
+    </div>
+  );
+};
 
 const HomePage: FC = () => {
   const navigate = useNavigate();
   const titleRef  = useRef<HTMLHeadingElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
+
+  /* parallax refs */
+  const projectsSectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: projScroll } = useScroll({ target: projectsSectionRef, offset: ['start end', 'end start'] });
+  const projBgY = useTransform(projScroll, [0, 1], ['0%', '-15%']);
+
+  const ctaSectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: ctaScroll } = useScroll({ target: ctaSectionRef, offset: ['start end', 'end start'] });
+  const ctaScale = useTransform(ctaScroll, [0, 0.5], [0.85, 1]);
+  const ctaOpacity = useTransform(ctaScroll, [0, 0.4], [0, 1]);
 
   const handleTitleMouseMove = (e: React.MouseEvent) => {
     if (!titleRef.current || !revealRef.current) return;
@@ -101,13 +152,16 @@ const HomePage: FC = () => {
         </motion.div>
       </div>
 
+      <SectionDivider />
+
       {/* ── Featured Projects ── */}
-      <section className="section">
+      <section className="section section--orb" ref={projectsSectionRef}>
+        {/* Animated background orb */}
+        <motion.div className="section-orb section-orb--purple" style={{ y: projBgY }} />
+        <motion.div className="section-orb section-orb--blue" style={{ y: projBgY }} />
+
         <div className="container">
-          <motion.div className="section-header" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <span className="section-label"><span className="section-label__line" />Featured Work</span>
-            <h2 className="section-title">Selected <span className="text-thin">Projects</span></h2>
-          </motion.div>
+          <ScrollRevealHeading label="Featured Work" title="Selected" thin="Projects" />
 
           <div className="project-grid">
             {projects.slice(0, 6).map((project, i) => (
@@ -115,19 +169,29 @@ const HomePage: FC = () => {
             ))}
           </div>
 
-          <motion.div className="section-footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ marginTop: '60px' }}>
+          <motion.div
+            className="section-footer"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{ marginTop: '60px' }}
+          >
             <GlassButton variant="secondary" size="lg" onClick={() => navigate('/portfolio')}>Explore Full Gallery ↗</GlassButton>
           </motion.div>
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* ── Services Quick ── */}
-      <section className="section section--dark">
+      <section className="section section--dark section--orb">
+        {/* Animated background orbs */}
+        <div className="section-orb section-orb--accent" />
+        <div className="section-orb section-orb--cyan" />
+
         <div className="container">
-          <motion.div className="section-header section-header--center" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <span className="section-label"><span className="section-label__line" /> What I Do</span>
-            <h2 className="section-title">Services <span className="text-thin">I Offer</span></h2>
-          </motion.div>
+          <ScrollRevealHeading label="What I Do" title="Services" thin="I Offer" />
 
           <div className="services-quick-grid">
             {[
@@ -136,9 +200,13 @@ const HomePage: FC = () => {
               { num: '03', title: 'Motion Graphics',      desc: 'Custom animations, 2D/3D logo reveals, and kinetic typography that breathe life into static designs.', image: 'https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg?auto=compress&cs=tinysrgb&w=800' },
               { num: '04', title: 'Color Grading & Post', desc: 'Cinematic color grading, advanced compositing, and pristine audio mixing for premium post-production.', image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop' },
             ].map((s, i) => (
-              <div
+              <motion.div
                 key={s.num}
                 className="skill-glow-wrap"
+                initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 onMouseMove={e => {
                   const r = e.currentTarget.getBoundingClientRect();
                   e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
@@ -149,7 +217,7 @@ const HomePage: FC = () => {
                   e.currentTarget.style.setProperty('--my', '-999px');
                 }}
               >
-                <GlassCard className="service-quick-card" delay={i * 0.1}>
+                <GlassCard className="service-quick-card" delay={0}>
                   <div className="service-quick-card__image-wrap">
                     <img src={s.image} alt={s.title} className="service-quick-card__img" />
                   </div>
@@ -157,23 +225,67 @@ const HomePage: FC = () => {
                   <h3 className="service-quick-card__title">{s.title}</h3>
                   <p className="service-quick-card__desc">{s.desc}</p>
                 </GlassCard>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <motion.div className="section-footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          <motion.div
+            className="section-footer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <GlassButton variant="ghost" size="lg" onClick={() => navigate('/services')}>All Services →</GlassButton>
           </motion.div>
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* ── CTA ── */}
-      <section className="cta-section">
+      <section className="cta-section cta-section--enhanced" ref={ctaSectionRef}>
+        {/* Animated glow orbs */}
+        <div className="cta-orb cta-orb--1" />
+        <div className="cta-orb cta-orb--2" />
+        <div className="cta-orb cta-orb--3" />
+
         <div className="container">
-          <motion.div className="cta-glass" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            <h2 className="cta-glass__title">Ready to Elevate <span className="text-gradient">Your Brand?</span></h2>
-            <p className="cta-glass__text">Let's craft a visual identity that leaves a lasting impression.</p>
-            <GlassButton variant="primary" size="lg" onClick={() => navigate('/contact')}>Get In Touch ↗</GlassButton>
+          <motion.div
+            className="cta-glass cta-glass--enhanced"
+            style={{ scale: ctaScale, opacity: ctaOpacity }}
+          >
+            <motion.div
+              className="cta-glass__sparkle"
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+            />
+            <motion.h2
+              className="cta-glass__title"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Ready to Elevate <span className="text-gradient">Your Brand?</span>
+            </motion.h2>
+            <motion.p
+              className="cta-glass__text"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Let's craft a visual identity that leaves a lasting impression.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <GlassButton variant="primary" size="lg" onClick={() => navigate('/contact')}>Get In Touch ↗</GlassButton>
+            </motion.div>
           </motion.div>
         </div>
       </section>
