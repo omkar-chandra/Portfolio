@@ -151,7 +151,7 @@ const AboutPage: FC = () => {
                 onClick={() => setSelectedPic(src)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPic(src); } }}
               >
-                <img src={src} alt={`Omkar Chandra photo ${(idx % 8) + 1}`} className="pic-marquee__img" loading="lazy" />
+                <img src={src} alt={`Omkar Chandra – moment ${(idx % 8) + 1}`} className="pic-marquee__img" loading="lazy" />
               </div>
             ))}
           </div>
@@ -302,7 +302,7 @@ const AboutPage: FC = () => {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <img src={selectedPic} alt="Live view" className="pic-modal-img" />
+              <img src={selectedPic} alt="Omkar Chandra – expanded view" className="pic-modal-img" />
             </motion.div>
           </motion.div>
         )}

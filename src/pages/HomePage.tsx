@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { GlassButton, GlassCard, FloatingShapes, PageTransition, ProjectCard } from '../components';
 import { projects } from '../data';
