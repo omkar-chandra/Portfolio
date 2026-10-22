@@ -1,0 +1,805 @@
+/* ===========================================
+   ABOUT & TIMELINE
+   =========================================== */
+.page-hero {
+    padding: clamp(120px, 25vh, 220px) 0 clamp(60px, 10vh, 120px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 70% 80% at 50% 40%, rgba(23, 105, 246, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 70% 20%, rgba(179, 156, 239, 0.08) 0%, transparent 50%);
+}
+
+.page-hero > .container {
+    position: relative;
+    z-index: 1;
+}
+
+.page-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 10vw, 8rem);
+    line-height: 1;
+    margin-bottom: 20px;
+    word-break: break-word;
+}
+
+.page-hero__subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ===========================================
+   ABOUT — Card-based Layout
+   =========================================== */
+
+/* ── 3D Tilt Card Base ── */
+.about-tilt-card {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    will-change: transform;
+    border-radius: 24px;
+}
+
+.about-tilt-card:hover {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(200, 255, 0, 0.04);
+}
+
+/* ── Cards Grid (bio section) ── */
+.about-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+/* ── Base Card ── */
+.about-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 24px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ── Image Card ── */
+.about-card--image {
+    padding: 0;
+}
+
+.about-card__image-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+}
+
+.about-card__insta-link {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    width: 60%;
+    height: 15%;
+    z-index: 10;
+    cursor: pointer;
+    text-decoration: none;
+    /* Transparent and seamless interaction */
+    background: transparent;
+}
+
+.about-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(30%) contrast(1.05);
+    transition: filter 0.5s ease;
+}
+
+.about-card--image:hover .about-card__img {
+    filter: grayscale(0%) contrast(1.1);
+}
+
+.about-card__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 5, 5, 0.8) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 30px;
+}
+
+.about-card__exp-badge {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(200, 255, 0, 0.3);
+}
+
+/* ── Bio Card ── */
+.about-card--bio {
+    padding: 0;
+}
+
+.about-card__content {
+    padding: 45px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-card__eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: block;
+    opacity: 0.8;
+}
+
+.about-card__name {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 24px;
+    overflow: visible;
+}
+
+.about-card__name-first {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.about-card__name-last {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background: linear-gradient(
+        135deg,
+        #b8fc3a,
+        #00ffcc,
+        #00cfff,
+        #0052ff,
+        #a855f7,
+        #ff3d9a,
+        #ff9a3d,
+        #b8fc3a
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    animation: chandraColorCycle 4s ease infinite;
+}
+
+@keyframes chandraColorCycle {
+    0%   { background-position: 0%   50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0%   50%; }
+}
+
+.about-card__divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), rgba(0, 82, 255, 0.5));
+    margin-bottom: 24px;
+    border-radius: 2px;
+}
+
+.about-card__bio {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    opacity: 0.75;
+    margin-bottom: 18px;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.about-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 28px;
+    align-items: center;
+}
+
+.about-card__tag {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1px solid rgba(200, 255, 0, 0.18);
+    background: rgba(200, 255, 0, 0.05);
+    color: var(--accent);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.about-card__tag:hover {
+    background: rgba(200, 255, 0, 0.1);
+    border-color: rgba(200, 255, 0, 0.3);
+}
+
+/* ── Pixel Reveal Animation ── */
+.pixel-reveal-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #050505;
+}
+
+.pixel-reveal-wrap .pixel-reveal-img,
+.pixel-reveal-wrap .about-card__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.pixel-reveal-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity;
+}
+
+/* ── Timeline Cards ── */
+.about-timeline-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-card--timeline {
+    padding: 0;
+}
+
+.about-card--timeline .about-card__content {
+    padding: 35px 40px;
+}
+
+.about-card__timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.about-card__year-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    background: rgba(200, 255, 0, 0.06);
+    border: 1px solid rgba(200, 255, 0, 0.15);
+}
+
+.about-card__year-start,
+.about-card__year-end {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+}
+
+.about-card__year-sep {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    color: var(--accent);
+}
+
+.about-card__timeline-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    opacity: 0.08;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.about-card__timeline-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #fff;
+    letter-spacing: 0.01em;
+}
+
+.about-card__timeline-sub {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.45;
+    display: block;
+    margin-bottom: 16px;
+}
+
+/* ── Spotlight Card Effect ── */
+.about-card--timeline {
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    --sx: 50%;
+    --sy: 50%;
+}
+
+.about-card--timeline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        400px circle at var(--sx) var(--sy),
+        rgba(200, 255, 0, 0.07) 0%,
+        rgba(0, 82, 255, 0.04) 40%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+.about-card--timeline:hover::before {
+    opacity: 1;
+}
+
+/* Content must sit above the spotlight glow */
+.about-card--timeline .about-card__content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Also glow the border on hover */
+.about-card--timeline:hover {
+    border-color: rgba(200, 255, 0, 0.18);
+    box-shadow: 0 0 0 1px rgba(200, 255, 0, 0.08),
+                0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ── Mobile responsive ── */
+@media (max-width: 900px) {
+    .about-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-card__image-wrap {
+        min-height: 350px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-card__content {
+        padding: 30px 24px;
+    }
+
+    .about-card--timeline .about-card__content {
+        padding: 24px 20px;
+    }
+
+    .about-card__name-first,
+    .about-card__name-last {
+        font-size: clamp(2rem, 10vw, 3rem);
+        white-space: normal;
+        word-break: break-word;
+    }
+}
+
+/* ===========================================
+   SKILLS MARQUEE (SMQ)
+   =========================================== */
+
+/* Section wrapper */
+.skills-marquee-section {
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    overflow: hidden;
+}
+
+/* Outer wrapper */
+.smq-outer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+}
+
+/* Drag viewport */
+.smq-viewport {
+    width: 100%;
+    overflow: visible;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+}
+
+/* The scrolling track — inline flex, no wrap */
+.smq-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    white-space: nowrap;
+    will-change: transform;
+    padding: 16px 0;
+}
+
+/* ── Individual skill item ── */
+.smq-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0 4px;
+    cursor: grab;
+}
+
+.smq-viewport:active .smq-item {
+    cursor: grabbing;
+}
+
+/* ── Shape-hugging ambient glow behind the squircle on hover ── */
+.smq-glow {
+    position: absolute;
+    inset: -10px;
+    border-radius: 30px;
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.85);
+    transition:
+        opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.smq-glow--active {
+    opacity: 0.75;
+    transform: scale(1.15);
+}
+
+/* Tool specific glow colors */
+.smq-glow--photoshop    { background: radial-gradient(circle, rgba(49, 168, 255, 0.6) 0%, transparent 70%); }
+.smq-glow--illustrator  { background: radial-gradient(circle, rgba(255, 154, 0, 0.6) 0%, transparent 70%); }
+.smq-glow--premierePro  { background: radial-gradient(circle, rgba(234, 119, 255, 0.55) 0%, transparent 70%); }
+.smq-glow--afterEffects { background: radial-gradient(circle, rgba(153, 153, 255, 0.6) 0%, transparent 70%); }
+.smq-glow--lightroom    { background: radial-gradient(circle, rgba(49, 168, 255, 0.6) 0%, transparent 70%); }
+.smq-glow--figma        { background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(242, 78, 30, 0.3) 50%, transparent 75%); }
+.smq-glow--canva        { background: radial-gradient(circle, rgba(0, 196, 204, 0.6) 0%, rgba(125, 42, 231, 0.4) 60%, transparent 80%); }
+.smq-glow--claude       { background: radial-gradient(circle, rgba(217, 119, 87, 0.65) 0%, transparent 70%); }
+.smq-glow--gemini       { background: radial-gradient(circle, rgba(120, 160, 255, 0.6) 0%, rgba(200, 100, 255, 0.3) 50%, transparent 75%); }
+.smq-glow--davinci      { background: radial-gradient(circle, rgba(255, 90, 90, 0.45) 0%, rgba(90, 200, 255, 0.3) 50%, transparent 75%); }
+.smq-glow--other        { background: radial-gradient(circle, rgba(200, 255, 0, 0.5) 0%, transparent 70%); }
+
+/* ── Icon wrapper (App Tile Squircle) ── */
+.smq-icon-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 23px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    transition:
+        border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow   0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        background   0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.smq-icon-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Glass top-edge specular highlight rim */
+.smq-icon-rim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0%, transparent 100%);
+    border-radius: 22px 22px 0 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Specific app squircle tile styling */
+.smq-icon-wrap--figma {
+    background: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.45),
+        0 0 16px rgba(255, 255, 255, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.smq-icon-wrap--canva {
+    background: linear-gradient(135deg, #00c4cc 0%, #3d5af1 50%, #7d2ae7 100%);
+    border-color: rgba(0, 196, 204, 0.35);
+}
+
+.smq-icon-wrap--claude {
+    background: #1c1714;
+    border-color: rgba(217, 119, 87, 0.30);
+}
+
+.smq-icon-wrap--gemini {
+    background: #0d101e;
+    border-color: rgba(120, 160, 255, 0.28);
+}
+
+.smq-icon-wrap--davinci {
+    background: #131418;
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.smq-icon-wrap--other {
+    background: #131418;
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+.smq-icon-wrap--afterEffects {
+    background: #00005b;
+    border-color: rgba(153, 153, 255, 0.26);
+}
+
+.smq-icon-wrap--premierePro {
+    background: #00005b;
+    border-color: rgba(234, 119, 255, 0.26);
+}
+
+.smq-icon-wrap--photoshop {
+    background: #001e36;
+    border-color: rgba(49, 168, 255, 0.26);
+}
+
+.smq-icon-wrap--lightroom {
+    background: #001e36;
+    border-color: rgba(49, 168, 255, 0.26);
+}
+
+.smq-icon-wrap--illustrator {
+    background: #330000;
+    border-color: rgba(255, 154, 0, 0.26);
+}
+
+/* Centered icon images for non-full-bleed tiles */
+.smq-icon-wrap img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+}
+
+.smq-icon-wrap--figma img {
+    width: 50px;
+    height: 50px;
+}
+
+.smq-icon-wrap--claude img,
+.smq-icon-wrap--gemini img,
+.smq-icon-wrap--davinci img,
+.smq-icon-wrap--other img {
+    width: 52px;
+    height: 52px;
+}
+
+/* Adobe & Canva icons fill their squircle bounds cleanly */
+.smq-icon-wrap--afterEffects img,
+.smq-icon-wrap--premierePro img,
+.smq-icon-wrap--photoshop img,
+.smq-icon-wrap--lightroom img,
+.smq-icon-wrap--illustrator img,
+.smq-icon-wrap--canva img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 22px;
+}
+
+/* Hover state on squircle */
+.smq-item:hover .smq-icon-wrap {
+    border-color: rgba(255, 255, 255, 0.32);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.30);
+}
+
+.smq-item:hover .smq-icon-wrap--figma {
+    border-color: rgba(255, 255, 255, 0.85);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.6),
+        0 0 24px rgba(255, 255, 255, 0.25);
+}
+
+.smq-item:hover .smq-icon-wrap--canva {
+    border-color: rgba(0, 196, 204, 0.6);
+}
+
+.smq-item:hover .smq-icon-wrap--photoshop,
+.smq-item:hover .smq-icon-wrap--lightroom {
+    border-color: rgba(49, 168, 255, 0.6);
+}
+
+.smq-item:hover .smq-icon-wrap--illustrator {
+    border-color: rgba(255, 154, 0, 0.6);
+}
+
+.smq-item:hover .smq-icon-wrap--afterEffects {
+    border-color: rgba(153, 153, 255, 0.6);
+}
+
+.smq-item:hover .smq-icon-wrap--premierePro {
+    border-color: rgba(234, 119, 255, 0.6);
+}
+
+.smq-item:hover .smq-icon-wrap--claude {
+    border-color: rgba(217, 119, 87, 0.6);
+}
+
+.smq-item:hover .smq-icon-wrap--gemini {
+    border-color: rgba(120, 160, 255, 0.6);
+}
+
+/* ── Edge fade masks ── */
+.smq-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.smq-fade--left {
+    left: 0;
+    background: linear-gradient(to right, #050505 0%, rgba(5, 5, 5, 0.85) 35%, transparent 100%);
+}
+
+.smq-fade--right {
+    right: 0;
+    background: linear-gradient(to left, #050505 0%, rgba(5, 5, 5, 0.85) 35%, transparent 100%);
+}
+
+/* ── Mobile & Tablet Responsive ── */
+@media (max-width: 768px) {
+    .smq-icon-wrap {
+        width: 74px;
+        height: 74px;
+        border-radius: 19px;
+    }
+
+    .smq-icon-wrap img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .smq-icon-wrap--figma img,
+    .smq-icon-wrap--claude img,
+    .smq-icon-wrap--gemini img,
+    .smq-icon-wrap--davinci img,
+    .smq-icon-wrap--other img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .smq-icon-wrap--afterEffects img,
+    .smq-icon-wrap--premierePro img,
+    .smq-icon-wrap--photoshop img,
+    .smq-icon-wrap--lightroom img,
+    .smq-icon-wrap--illustrator img,
+    .smq-icon-wrap--canva img {
+        border-radius: 18px;
+    }
+
+    .smq-track {
+        gap: 20px;
+    }
+
+    .smq-fade {
+        width: 60px;
+    }
+
+    .smq-outer {
+        padding: 20px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .smq-icon-wrap {
+        width: 62px;
+        height: 62px;
+        border-radius: 16px;
+    }
+
+    .smq-icon-wrap img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .smq-icon-wrap--figma img,
+    .smq-icon-wrap--claude img,
+    .smq-icon-wrap--gemini img,
+    .smq-icon-wrap--davinci img,
+    .smq-icon-wrap--other img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .smq-icon-wrap--afterEffects img,
+    .smq-icon-wrap--premierePro img,
+    .smq-icon-wrap--photoshop img,
+    .smq-icon-wrap--lightroom img,
+    .smq-icon-wrap--illustrator img,
+    .smq-icon-wrap--canva img {
+        border-radius: 15px;
+    }
+
+    .smq-track {
+        gap: 15px;
+    }
+
+    .smq-fade {
+        width: 35px;
+    }
+}
+

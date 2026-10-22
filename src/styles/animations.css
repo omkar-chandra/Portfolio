@@ -1,0 +1,187 @@
+/* ===========================================
+   ANIMATIONS — All @keyframes definitions
+   =========================================== */
+
+/* ── Intro overlay ── */
+@keyframes introParticleFloat {
+    0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+    50%      { opacity: 0.6; transform: translateY(-40px) scale(1); }
+}
+
+@keyframes introLogoPulse {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(200, 255, 0, 0.2)); }
+    50%      { filter: drop-shadow(0 0 50px rgba(200, 255, 0, 0.5)) drop-shadow(0 0 80px rgba(0, 82, 255, 0.2)); }
+}
+
+@keyframes introGlowSpin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ── Section divider ── */
+@keyframes divider-pulse {
+    0%, 100% { opacity: 0.5; transform: scaleX(1); }
+    50% { opacity: 1; transform: scaleX(1.3); }
+}
+
+/* ── Section orbs ── */
+@keyframes orb-float-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes orb-float-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-30px, 30px) scale(1.05); }
+    66% { transform: translate(40px, -20px) scale(0.9); }
+}
+
+@keyframes orb-float-3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    50% { transform: translate(25px, -35px) rotate(5deg) scale(1.08); }
+}
+
+/* ── Cursor ── */
+@keyframes cursorRippleBurst {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+@keyframes particleOut {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* ── Glass button ripple ── */
+@keyframes btn-ripple {
+    to {
+        transform: translate(-50%, -50%) scale(15);
+        opacity: 0;
+    }
+}
+
+/* ── Pulse dot ── */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(200, 255, 0, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(200, 255, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(200, 255, 0, 0);
+    }
+}
+
+/* ── Marquee / picture scroll ── */
+@keyframes picScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 12px)); } /* 12px is half of the 24px gap */
+}
+
+/* ── Skill bar gradient loop ── */
+@keyframes skillGradientLoop {
+    0% {
+        background-position: 100% 0%;
+    }
+
+    100% {
+        background-position: -100% 0%;
+    }
+}
+
+/* ── CTA orbs ── */
+@keyframes cta-orb-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.2); }
+}
+
+@keyframes cta-orb-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, 20px) scale(1.15); }
+}
+
+@keyframes cta-orb-3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+}
+
+/* ── Video player quality menu ── */
+@keyframes vpMenuIn {
+    from { opacity: 0; transform: translateY(6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)  scale(1);     }
+}
+
+/* ── Liquid Glass Navigation ── */
+@keyframes navBubbleGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 12px rgba(200, 255, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    50% {
+        box-shadow:
+            0 0 20px rgba(200, 255, 0, 0.15),
+            inset 0 1px 0 rgba(255, 234, 234, 0.2);
+    }
+}
+
+@keyframes glassShine {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes bubbleExpand {
+    0% {
+        transform: scale(0);
+        opacity: 0.8;
+        border-radius: 50%;
+    }
+    60% {
+        opacity: 0.6;
+        border-radius: 30%;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+        border-radius: 0;
+    }
+}
+
+@keyframes bubbleShrink {
+    0% {
+        transform: scale(1);
+        opacity: 0;
+        border-radius: 0;
+    }
+    40% {
+        opacity: 0.6;
+        border-radius: 30%;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0.8;
+        border-radius: 50%;
+    }
+}

@@ -1,0 +1,570 @@
+/* ===========================================
+   VIDEO PLAYER — MINIMAL GLASS CONTROLS
+   Glass is applied ONLY to individual icons.
+   The shelf/bar has NO background/backdrop —
+   only a dark gradient for readability.
+   =========================================== */
+
+/* ── Shell ── */
+.vp-shell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.vp-shell:fullscreen { border-radius: 0 !important; }
+.vp-shell--idle,
+.vp-shell--idle:fullscreen { cursor: none !important; }
+
+/* ── Video element ── */
+.vp-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ═══════════════════════════════════════════
+   CENTER OVERLAY — 3 glass circles
+   ═══════════════════════════════════════════ */
+.vp-center-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 6;
+}
+
+.vp-center-overlay--visible {
+    opacity: 1;
+    pointer-events: none;
+}
+
+/* Glass circle base */
+.vp-center-btn {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.25s ease,
+        transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Side skip circles */
+.vp-center-btn--side {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(10px) saturate(1.4);
+    -webkit-backdrop-filter: blur(10px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 2px 12px rgba(0, 0, 0, 0.22);
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.vp-center-btn--side:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.40),
+        0 0 16px rgba(255, 255, 255, 0.10),
+        0 4px 16px rgba(0, 0, 0, 0.28);
+    color: #fff;
+    transform: scale(1.06);
+}
+
+.vp-center-btn--side:active { transform: scale(0.92); }
+
+/* Main play/pause circle */
+.vp-center-btn--main {
+    width: 66px;
+    height: 66px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px) saturate(1.6) brightness(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.6) brightness(1.1);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow:
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+        0 6px 24px rgba(0, 0, 0, 0.32);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.vp-center-btn--main:hover {
+    background: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(20px) saturate(2) brightness(1.18);
+    -webkit-backdrop-filter: blur(20px) saturate(2) brightness(1.18);
+    border-color: rgba(255, 255, 255, 0.36);
+    box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.50),
+        0 0 22px rgba(255, 255, 255, 0.14),
+        0 8px 28px rgba(0, 0, 0, 0.36);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.vp-center-btn--main:active { transform: scale(0.93); }
+
+/* ═══════════════════════════════════════════
+   CONTROL BAR — NO glass background
+   Only a gradient for text legibility.
+   Glass lives on individual buttons only.
+   ═══════════════════════════════════════════ */
+.vp-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 10px 10px;
+    /* Subtle dark gradient — no blur, no tint across the whole bar */
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.70) 0%,
+        rgba(0, 0, 0, 0.22) 50%,
+        transparent 100%
+    );
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.vp-shell:fullscreen .vp-controls,
+.vp-shell--fullscreen .vp-controls {
+    padding: 0 18px 16px;
+}
+
+.vp-controls--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ── Glass shelf — transparent, no background ── */
+.vp-glass-shelf {
+    /* Intentionally no background, no border, no backdrop-filter */
+    padding: 4px 0 0;
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════ */
+.vp-progress {
+    padding: 8px 2px 5px;
+    cursor: pointer;
+}
+
+.vp-progress__track {
+    position: relative;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 9999px;
+    overflow: visible;
+    transition: height 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vp-progress:hover .vp-progress__track { height: 5px; }
+
+.vp-progress__buffered {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.20);
+    border-radius: 9999px;
+    transition: width 0.6s linear;
+    pointer-events: none;
+}
+
+/* No CSS transition on width — RAF handles smoothness */
+.vp-progress__fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(
+        90deg,
+        var(--accent, #c8ff00) 0%,
+        rgba(200, 255, 0, 0.8) 55%,
+        rgba(0, 220, 255, 0.9) 100%
+    );
+    border-radius: 9999px;
+    pointer-events: none;
+    box-shadow: 0 0 6px rgba(200, 255, 0, 0.5);
+}
+
+.vp-progress__thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 2px rgba(200, 255, 0, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+}
+
+.vp-progress:hover .vp-progress__thumb {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ═══════════════════════════════════════════
+   BAR ROW
+   ═══════════════════════════════════════════ */
+.vp-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1px 2px 0;
+    gap: 2px;
+}
+
+.vp-bar__left,
+.vp-bar__right {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+/* ═══════════════════════════════════════════
+   BUTTONS — glass on the icon itself, no box
+   ═══════════════════════════════════════════ */
+.vp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 6px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.72);
+    cursor: pointer;
+    transition:
+        color 0.18s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.vp-btn svg { display: block; flex-shrink: 0; }
+
+/* Icon-style buttons (volume, quality, fullscreen) */
+.vp-btn--icon {
+    padding: 5px 7px;
+    gap: 5px;
+}
+
+/* Micro glass applied directly on icon hover — no box */
+.vp-btn--icon:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.10);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.20);
+}
+
+.vp-btn:active { transform: scale(0.88); }
+
+/* ═══════════════════════════════════════════
+   VOLUME — icon only; slider slides in on hover
+   ═══════════════════════════════════════════ */
+.vp-volume {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+}
+
+.vp-volume .vp-btn {
+    padding: 5px 6px;
+    border-radius: 8px;
+}
+
+.vp-volume .vp-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.10);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* Slider — collapsed by default, expands on hover */
+.vp-volume__slider {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.22s ease;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+}
+
+.vp-volume--open .vp-volume__slider {
+    width: 70px;
+    opacity: 1;
+}
+
+/* ── Volume range — dimensional pill, not flat ── */
+.vp-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 62px;
+    height: 3px;
+    border-radius: 9999px;
+    /* Dimensional: filled portion is bright, empty is dark with inner shadow */
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.90) var(--vol-pct, 100%),
+        rgba(255, 255, 255, 0.14) var(--vol-pct, 100%)
+    );
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.30),
+        inset 0 -0.5px 0 rgba(255, 255, 255, 0.08);
+    outline: none;
+    cursor: pointer;
+    margin: 0 4px;
+    flex-shrink: 0;
+    transition: height 0.15s ease;
+}
+
+.vp-range:hover {
+    height: 4px;
+}
+
+.vp-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow:
+        0 0 0 1.5px rgba(255, 255, 255, 0.30),
+        0 1px 4px rgba(0, 0, 0, 0.50),
+        0 2px 8px rgba(0, 0, 0, 0.30);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vp-range:hover::-webkit-slider-thumb {
+    transform: scale(1.2);
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.35),
+        0 0 8px rgba(255, 255, 255, 0.22),
+        0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.vp-range::-moz-range-thumb {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.vp-range::-moz-range-track {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+}
+
+/* ═══════════════════════════════════════════
+   TIME DISPLAY
+   ═══════════════════════════════════════════ */
+.vp-time {
+    font-family: 'Space Grotesk', 'Inter', monospace;
+    font-size: 0.67rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.70);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    padding: 3px 7px;
+    line-height: 1;
+    margin-left: 1px;
+}
+
+.vp-time__sep {
+    margin: 0 3px;
+    opacity: 0.30;
+}
+
+/* ═══════════════════════════════════════════
+   QUALITY PICKER
+   ═══════════════════════════════════════════ */
+.vp-qpick { position: relative; }
+
+.vp-qpick__label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.vp-qpick__menu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+    background: rgba(10, 10, 20, 0.88);
+    backdrop-filter: blur(28px) saturate(1.5);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 12px;
+    min-width: 118px;
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    z-index: 20;
+    animation: vpMenuIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+@keyframes vpMenuIn {
+    from { opacity: 0; transform: translateY(6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.vp-qpick__item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 13px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+}
+
+.vp-qpick__item:hover { background: rgba(255, 255, 255, 0.07); color: #fff; }
+.vp-qpick__item--active { color: #fff; font-weight: 700; }
+
+.vp-qpick__check {
+    width: 10px;
+    font-size: 0.55rem;
+    color: var(--accent, #c8ff00);
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.vp-qpick__badge {
+    margin-left: auto;
+    padding: 1px 5px;
+    background: rgba(200, 255, 0, 0.09);
+    border: 1px solid rgba(200, 255, 0, 0.24);
+    border-radius: 5px;
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--accent, #c8ff00);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+    .vp-time { font-size: 0.59rem; padding: 3px 4px; }
+    .vp-qpick__label { display: none; }
+    .vp-center-btn--main { width: 54px; height: 54px; }
+    .vp-center-btn--side { width: 42px; height: 42px; }
+    .vp-center-overlay { gap: 18px; }
+}
+
+/* ═══════════════════════════════════════════
+   YOUTUBE PLAYER — poster + iframe
+   ═══════════════════════════════════════════ */
+
+/* YouTube shell variant */
+.vp-shell--youtube {
+    background: #000;
+    cursor: pointer;
+}
+
+/* Poster (thumbnail) layer */
+.vp-yt-poster {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.vp-yt-poster__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    -webkit-user-select: none;
+    /* Fallback: if maxresdefault 404s, browser shows broken image — handled gracefully */
+}
+
+/* Dark translucent overlay so play button is always readable */
+.vp-yt-poster__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+/* iframe wrapper — fills the shell */
+.vp-yt-frame-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.vp-yt-iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #000;
+}
+
+/* On poster, make the center overlay always clickable (not just hover) */
+.vp-shell--youtube .vp-yt-poster .vp-center-overlay {
+    pointer-events: none;
+}
+
+.vp-shell--youtube .vp-yt-poster .vp-center-btn {
+    pointer-events: auto;
+}
+

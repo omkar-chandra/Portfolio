@@ -1,0 +1,199 @@
+/* ===========================================
+   HERO SECTION
+   =========================================== */
+.hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;   /* clamp the 200vw bg-text to the section */
+    padding-top: calc(var(--nav-h) + 40px);
+    padding-bottom: 100px;
+}
+
+.hero__bg-text {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 200vw;
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 15vw, 20rem);
+    font-weight: 900;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.02);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    user-select: none;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 clamp(20px, 5vw, 60px);
+    width: 100%;
+    max-width: 1000px;
+}
+
+.hero__badge {
+    margin-bottom: 30px;
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 8rem);
+    line-height: 1.1;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Duten-style spotlight reveal on hero title */
+.hero__title-line {
+    position: relative;
+    display: inline-block;
+}
+
+.hero__title-line--outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.6);
+    position: relative;
+}
+
+/* Chrome/metallic reveal layer */
+.hero__title-reveal {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.hero__title-reveal .hero__title-line {
+    background: linear-gradient(135deg,
+            rgba(200, 255, 0, 0.9) 0%,
+            rgba(255, 255, 255, 1) 25%,
+            rgba(200, 255, 0, 0.8) 50%,
+            rgba(61, 255, 234, 0.9) 75%,
+            rgba(255, 255, 255, 1) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero__title-reveal .hero__title-line--outline {
+    -webkit-text-stroke: 0;
+    background: linear-gradient(135deg,
+            rgba(200, 255, 0, 1) 0%,
+            rgba(255, 255, 255, 1) 40%,
+            rgba(61, 255, 234, 1) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero__subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 600px;
+    opacity: 0.8;
+    margin-bottom: 50px;
+    line-height: 1.7;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero__scroll {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.3;
+    z-index: 3;
+}
+
+.scroll-indicator {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-indicator__dot {
+    width: 100%;
+    height: 50%;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ===========================================
+   FLOATING SHAPES
+   =========================================== */
+.floating-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    filter: blur(60px);
+    border-radius: 50%;
+    opacity: 0.4;
+    mix-blend-mode: screen;
+}
+
+.shape--1 {
+    width: 400px;
+    height: 400px;
+    background: #1769f6;
+    top: -10%;
+    right: -5%;
+}
+
+.shape--2 {
+    width: 500px;
+    height: 500px;
+    background: #7970cd;
+    bottom: -20%;
+    left: -10%;
+}
+
+.shape--3 {
+    width: 300px;
+    height: 300px;
+    background: #b39cef;
+    top: 40%;
+    left: 50%;
+}

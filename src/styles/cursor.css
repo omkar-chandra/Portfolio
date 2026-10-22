@@ -1,0 +1,131 @@
+/* ===========================================
+   CUSTOM CURSOR — Minimalist Lerp Dot
+   =========================================== */
+
+/* Hide native cursor on non-touch devices */
+@media (pointer: fine) {
+    *, *::before, *::after {
+        cursor: none !important;
+    }
+}
+
+/* In browser fullscreen, custom cursor DOM elements (located on body) are not in the top-layer,
+   so native cursor MUST be restored so the mouse is fully visible and usable. */
+:fullscreen,
+:fullscreen * {
+    cursor: default !important;
+}
+
+:fullscreen button,
+:fullscreen [role="button"],
+:fullscreen [role="slider"],
+:fullscreen input,
+:fullscreen .vp-btn,
+:fullscreen .vp-progress,
+:fullscreen .vp-qpick__item {
+    cursor: pointer !important;
+}
+
+/* When idle in fullscreen, hide cursor */
+.vp-shell:fullscreen.vp-shell--idle,
+.vp-shell:fullscreen.vp-shell--idle * {
+    cursor: none !important;
+}
+
+/* ── Minimalist Dot — Smooth lerp follower ── */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000002;
+    opacity: 0;
+    will-change: transform;
+    box-shadow: 0 0 6px rgba(200, 255, 0, 0.4), 0 0 12px rgba(200, 255, 0, 0.15);
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.cursor-dot--hover {
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.5), 0 0 30px rgba(200, 255, 0, 0.2);
+}
+
+.cursor-dot--click {
+    width: 5px;
+    height: 5px;
+}
+
+/* ── Cursor Ring — smooth follow ring ── */
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgba(200, 255, 0, 0.25);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000001;
+    opacity: 0;
+    will-change: transform;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease;
+}
+
+.cursor-ring--hover {
+    width: 30px;
+    height: 30px;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.cursor-ring--click {
+    width: 12px;
+    height: 12px;
+}
+
+/* ── Click ripple (Left Click) ── */
+.cursor-click-ripple {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000000;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    animation: cursorRippleBurst 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    mix-blend-mode: difference;
+}
+
+/* ── Particles (Right Click) ── */
+.cursor-particle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    animation: particleOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide cursor elements on touch devices */
+@media (pointer: coarse) {
+    .cursor-dot,
+    .cursor-ring,
+    .cursor-click-ripple,
+    .cursor-particle {
+        display: none !important;
+    }
+}

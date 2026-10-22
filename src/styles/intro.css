@@ -1,0 +1,150 @@
+/* ===========================================
+   INTRO ANIMATION
+   =========================================== */
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Ambient floating particles */
+.intro-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.intro-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: introParticleFloat 3s ease-in-out infinite;
+}
+
+/* Logo container */
+.intro-logo-wrap {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.intro-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 30px rgba(200, 255, 0, 0.3));
+    animation: introLogoPulse 2s ease-in-out infinite;
+}
+
+.intro-logo-glow {
+    position: absolute;
+    inset: -25%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 255, 0, 0.12) 0%, rgba(0, 82, 255, 0.06) 40%, transparent 70%);
+    animation: introGlowSpin 4s linear infinite;
+    pointer-events: none;
+}
+
+/* Name reveal */
+.intro-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    z-index: 2;
+    perspective: 600px;
+}
+
+.intro-name__first,
+.intro-name__last {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+}
+
+.intro-letter {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    color: #fff;
+    text-transform: uppercase;
+    will-change: transform, opacity;
+}
+
+.intro-letter--accent {
+    background: linear-gradient(135deg, var(--accent) 0%, #00ffff 50%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Tagline with lines */
+.intro-tagline {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.intro-tagline__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 255, 0, 0.4), transparent);
+}
+
+.intro-tagline__text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+}
+
+/* Exit wipe */
+.intro-wipe {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+    transform-origin: center;
+    z-index: 3;
+    box-shadow: 0 0 40px 10px rgba(200, 255, 0, 0.3);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .intro-logo-wrap {
+        width: 120px;
+        height: 120px;
+    }
+
+    .intro-letter {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        letter-spacing: 0.08em;
+    }
+
+    .intro-tagline__text {
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+    }
+}

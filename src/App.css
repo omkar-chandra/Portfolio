@@ -1,0 +1,32 @@
+/* ===========================================
+   App.css — Entry Point / Import Manifest
+   All styles are organized into purpose-specific
+   partials inside src/styles/.
+   =========================================== */
+
+/* 1. Foundation */
+@import './styles/base.css';
+@import './styles/animations.css';
+
+/* 2. UI Primitives */
+@import './styles/cursor.css';
+@import './styles/components.css';
+
+/* 3. Navigation */
+@import './styles/navigation.css';
+
+/* 4. Page Sections */
+@import './styles/intro.css';
+@import './styles/hero.css';
+@import './styles/about.css';
+@import './styles/services.css';
+@import './styles/portfolio.css';
+@import './styles/contact.css';
+@import './styles/footer.css';
+
+/* 5. Components */
+@import './styles/video-player.css';
+
+/* 6. Cross-cutting Concerns */
+@import './styles/accessibility.css';
+@import './styles/responsive.css';
