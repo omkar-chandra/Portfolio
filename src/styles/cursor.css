@@ -1,16 +1,18 @@
 /* ===========================================
-   CUSTOM CURSOR — Minimalist Lerp Dot
+   CUSTOM CURSOR — Refined Dot + Subtle Trail
+   Clean, sharp, minimal. No circular outline.
+   No blur, glow, shadow, or glowing background.
+   Smooth, fluid tracking with natural easing.
    =========================================== */
 
-/* Hide native cursor on non-touch devices */
+/* Hide native cursor on pointer devices */
 @media (pointer: fine) {
     *, *::before, *::after {
         cursor: none !important;
     }
 }
 
-/* In browser fullscreen, custom cursor DOM elements (located on body) are not in the top-layer,
-   so native cursor MUST be restored so the mouse is fully visible and usable. */
+/* Restore native cursor inside fullscreen (DOM custom cursor is not in top-layer) */
 :fullscreen,
 :fullscreen * {
     cursor: default !important;
@@ -26,37 +28,40 @@
     cursor: pointer !important;
 }
 
-/* When idle in fullscreen, hide cursor */
+/* When idle fullscreen, hide cursor */
 .vp-shell:fullscreen.vp-shell--idle,
 .vp-shell:fullscreen.vp-shell--idle * {
     cursor: none !important;
 }
 
-/* ── Minimalist Dot — Smooth lerp follower ── */
+/* ── Primary sharp dot ── */
 .cursor-dot {
     position: fixed;
     top: 0;
     left: 0;
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
+    width: 7px;
+    height: 7px;
+    background: var(--accent, #c8ff00);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 1000002;
+    z-index: 1000003;
     opacity: 0;
     will-change: transform;
-    box-shadow: 0 0 6px rgba(200, 255, 0, 0.4), 0 0 12px rgba(200, 255, 0, 0.15);
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                background 0.25s ease,
-                box-shadow 0.25s ease;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    filter: none;
+    transition:
+        width 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.18s ease;
 }
 
 .cursor-dot--hover {
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.5), 0 0 30px rgba(200, 255, 0, 0.2);
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    box-shadow: none;
 }
 
 .cursor-dot--click {
@@ -64,68 +69,89 @@
     height: 5px;
 }
 
-/* ── Cursor Ring — smooth follow ring ── */
-.cursor-ring {
+/* ── Subtle trailing dot (clean, sharp, minimal, no blur, no glow, no shadow) ── */
+.cursor-trail {
     position: fixed;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid rgba(200, 255, 0, 0.25);
+    width: 4px;
+    height: 4px;
+    background: var(--accent, #c8ff00);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 1000001;
+    z-index: 1000002;
     opacity: 0;
     will-change: transform;
-    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.3s ease;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    filter: none;
+    transition:
+        width 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.18s ease;
 }
 
-.cursor-ring--hover {
-    width: 30px;
-    height: 30px;
-    border-color: rgba(255, 255, 255, 0.35);
+.cursor-trail--hover {
+    background: #ffffff;
 }
 
-.cursor-ring--click {
-    width: 12px;
-    height: 12px;
-}
-
-/* ── Click ripple (Left Click) ── */
-.cursor-click-ripple {
+/* ── Liquid Glass contextual label pill ── */
+.cursor-label {
     position: fixed;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 1000000;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-    animation: cursorRippleBurst 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    mix-blend-mode: difference;
+    z-index: 1000004;
+    white-space: nowrap;
+    will-change: transform;
+
+    /* Glass surface */
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(18px) saturate(180%) brightness(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(180%) brightness(1.15);
+
+    /* Border with top specular highlight */
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top-color: rgba(255, 255, 255, 0.45);
+
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-family: var(--font-heading, 'Syne', sans-serif);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.92);
+
+    /* Subtle depth */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+        0 4px 20px rgba(0, 0, 0, 0.3);
+
+    /* Show/hide via opacity + scale */
+    opacity: 0;
+    transform: translate(-200px, -200px);
+    scale: 0.85;
+    transition:
+        opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        scale 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Particles (Right Click) ── */
-.cursor-particle {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    animation: particleOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.cursor-label::after {
+    content: attr(data-label);
 }
 
-/* Hide cursor elements on touch devices */
+.cursor-label--visible {
+    opacity: 1;
+    scale: 1;
+}
+
+/* Hide everything on touch devices */
 @media (pointer: coarse) {
     .cursor-dot,
-    .cursor-ring,
-    .cursor-click-ripple,
-    .cursor-particle {
+    .cursor-trail,
+    .cursor-label {
         display: none !important;
     }
 }

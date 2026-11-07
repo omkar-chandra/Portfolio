@@ -1,4 +1,4 @@
-/* ===========================================
+﻿/* ===========================================
    RESPONSIVE — Global Media Query Overrides
    Breakpoints that affect multiple components
    =========================================== */
@@ -390,6 +390,14 @@
     .portfolio-sections {
         gap: 60px;
         margin-top: 30px;
+        overflow-x: hidden;
+    }
+
+    /* Ensure the project grid container never overflows horizontally */
+    .project-grid-container {
+        overflow-x: hidden;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .portfolio-section__header {

@@ -53,21 +53,21 @@ const MorphingPreviewModal: FC<PreviewModalProps> = ({ project, originRect, onCl
   const winH = typeof window !== 'undefined' ? window.innerHeight : 800;
 
   let targetW = 900;
-  let targetH = 550;
+
   if (isVideo) {
     if (isVert) {
       targetW = Math.min((winH * 0.86 - 44) * (9 / 16), winW * 0.9, 420);
-      targetH = targetW * (16 / 9) + 44;
+
     } else {
       targetW = Math.min((winH * 0.84 - 44) * (16 / 9), winW * 0.92, 1100);
-      targetH = targetW * (9 / 16) + 44;
+
     }
   } else if (is4by5) {
     targetW = Math.min((winH * 0.84 - 44) * (4 / 5), winW * 0.92, 600);
-    targetH = targetW * (5 / 4) + 44;
+
   } else {
     targetW = Math.min(winH * 0.84 - 44, winW * 0.92, 740);
-    targetH = targetW + 44;
+
   }
 
   const initX = originRect ? originRect.left + originRect.width / 2 - winW / 2 : 0;

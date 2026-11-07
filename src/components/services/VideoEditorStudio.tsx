@@ -6,7 +6,7 @@ import {
 } from './ServiceIcons';
 import { HexColorPicker } from './HexColorPicker';
 
-const VIDEO_URL = 'https://res.cloudinary.com/dlxlnvwuc/video/upload/v1788428375/Nezo_yt_5.mp4';
+const VIDEO_URL = 'https://ik.imagekit.io/ocg/VIDEOS/Video_4_edit.mp4?updatedAt=1793610246807';
 
 // Helper to format seconds into SMPTE timecode (HH:MM:SS:FF @ 30fps)
 const formatTimecode = (seconds: number): string => {
@@ -122,26 +122,26 @@ export interface SFXClip {
 const DEFAULT_VIDEO_CLIPS: VideoClip[] = [
   {
     id: 'vclip-1',
-    name: 'Nezo_Reel_Shot01.mp4',
+    name: 'Video_4_Shot01.mp4',
     startTime: 0,
-    duration: 4.8,
+    duration: 9.6,
     sourceStart: 0,
     colorLabel: '#1e3a8a',
   },
   {
     id: 'vclip-2',
-    name: 'Nezo_Reel_Shot02.mp4',
-    startTime: 4.8,
-    duration: 4.8,
-    sourceStart: 4.8,
+    name: 'Video_4_Shot02.mp4',
+    startTime: 9.6,
+    duration: 9.6,
+    sourceStart: 9.6,
     colorLabel: '#1e40af',
   },
   {
     id: 'vclip-3',
-    name: 'Nezo_Reel_Shot03.mp4',
-    startTime: 9.6,
-    duration: 5.6,
-    sourceStart: 9.6,
+    name: 'Video_4_Shot03.mp4',
+    startTime: 19.2,
+    duration: 10.0,
+    sourceStart: 19.2,
     colorLabel: '#2563eb',
   },
 ];
@@ -159,9 +159,9 @@ const DEFAULT_TEXT_CLIPS: TextOverlayClip[] = [
 ];
 
 const DEFAULT_SFX_CLIPS: SFXClip[] = [
-  { id: 'sfx-1', name: 'Whoosh', type: 'whoosh', time: 2.0 },
-  { id: 'sfx-2', name: 'Impact', type: 'impact', time: 7.0 },
-  { id: 'sfx-3', name: 'Shutter', type: 'shutter', time: 12.0 },
+  { id: 'sfx-1', name: 'Whoosh', type: 'whoosh', time: 3.5 },
+  { id: 'sfx-2', name: 'Impact', type: 'impact', time: 14.0 },
+  { id: 'sfx-3', name: 'Shutter', type: 'shutter', time: 24.0 },
 ];
 
 export const VideoEditorStudio: FC = () => {
@@ -171,7 +171,7 @@ export const VideoEditorStudio: FC = () => {
   // Playback state
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(15.2);
+  const [duration, setDuration] = useState(29.27);
   const [volume, setVolume] = useState(0.85);
   const [isMuted, setIsMuted] = useState(true);
   const [playbackRate, setPlaybackRate] = useState(1);
@@ -226,7 +226,7 @@ export const VideoEditorStudio: FC = () => {
 
   const handleLoadedMetadata = () => {
     if (!videoRef.current) return;
-    const d = videoRef.current.duration || 15.2;
+    const d = videoRef.current.duration || 29.27;
     setDuration(d);
   };
 

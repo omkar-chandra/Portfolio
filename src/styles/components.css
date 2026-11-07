@@ -676,8 +676,10 @@
 
 /* ── Gallery Card — Refined Dark Polaroid Frame with Theme Border Glow ── */
 .gallery-card {
+    --gallery-card-h: 280px;
     position: relative;
     flex-shrink: 0;
+    width: calc(var(--gallery-card-w) + 20px);
     cursor: pointer;
     transform-style: preserve-3d;
     transition: transform 0.35s cubic-bezier(0.03, 0.98, 0.52, 0.99),
@@ -696,6 +698,24 @@
         0 1px 4px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     overflow: visible;
+}
+
+/* Aspect ratio specific widths based on constant image height */
+.gallery-card--aspect-4-5 {
+    --gallery-card-w: calc(var(--gallery-card-h) * 4 / 5); /* 224px */
+}
+
+.gallery-card--aspect-4-3 {
+    --gallery-card-w: calc(var(--gallery-card-h) * 4 / 3); /* 373.33px */
+}
+
+.gallery-card--aspect-16-9 {
+    --gallery-card-w: calc(var(--gallery-card-h) * 16 / 9); /* 497.78px */
+}
+
+/* Fallback for any 3:4 */
+.gallery-card--aspect-3-4 {
+    --gallery-card-w: calc(var(--gallery-card-h) * 3 / 4);
 }
 
 /* Pointer-following colored border glow on hover (matching portfolio theme) */
@@ -756,14 +776,15 @@
     opacity: 1;
 }
 
-/* ── Image wrapper (preserves individual aspect ratios) ── */
+/* ── Image wrapper (identical height for all photos; width flows from aspect ratio) ── */
 .gallery-card__image-wrap {
     position: relative;
-    height: 320px;
-    width: auto;
+    width: var(--gallery-card-w);
+    height: var(--gallery-card-h);
     border-radius: 8px;
     overflow: hidden;
     background: #0d0e12;
+    display: block;
 }
 
 /* ── Image ── */
@@ -796,12 +817,16 @@
 /* ── Caption — Comic Sans MS style inside the Polaroid frame ── */
 .gallery-card__caption {
     font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-    font-size: 1.04rem;
+    font-size: 0.92rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.78);
     text-align: center;
-    padding: 13px 8px 15px 8px;
+    padding: 12px 6px 14px 6px;
     white-space: normal;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     max-width: 100%;
     line-height: 1.35;
     letter-spacing: 0.01em;
@@ -812,13 +837,11 @@
     color: #ffffff;
 }
 
-/* Kept compact size for smaller ratio images (e.g. 3:4 / 4:5 / 4:3 / portrait) so captions don't get oversized */
+/* Refined compact size for 4:5 cards so caption wraps comfortably */
 .gallery-card--aspect-3-4 .gallery-card__caption,
-.gallery-card--aspect-4-5 .gallery-card__caption,
-.gallery-card--aspect-4-3 .gallery-card__caption {
+.gallery-card--aspect-4-5 .gallery-card__caption {
     font-size: 0.84rem;
-    padding: 12px 6px 14px 6px;
-    line-height: 1.32;
+    line-height: 1.30;
 }
 
 /* ── Edge fade masks ── */
@@ -843,11 +866,9 @@
 
 /* ── Responsive: Tablet ── */
 @media (max-width: 1024px) {
-    .gallery-card__image-wrap {
-        height: 260px;
-    }
-
     .gallery-card {
+        --gallery-card-h: 240px;
+        width: calc(var(--gallery-card-w) + 16px);
         padding: 8px 8px 0 8px;
         border-radius: 12px;
     }
@@ -858,13 +879,13 @@
     }
 
     .gallery-card__caption {
-        font-size: 0.96rem;
-        padding: 11px 6px 13px 6px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        padding: 10px 5px 12px 5px;
     }
 
     .gallery-card--aspect-3-4 .gallery-card__caption,
-    .gallery-card--aspect-4-5 .gallery-card__caption,
-    .gallery-card--aspect-4-3 .gallery-card__caption {
+    .gallery-card--aspect-4-5 .gallery-card__caption {
         font-size: 0.78rem;
     }
 
@@ -879,11 +900,9 @@
         padding: 30px 0 50px 0;
     }
 
-    .gallery-card__image-wrap {
-        height: 220px;
-    }
-
     .gallery-card {
+        --gallery-card-h: 200px;
+        width: calc(var(--gallery-card-w) + 14px);
         padding: 7px 7px 0 7px;
         border-radius: 10px;
     }
@@ -898,14 +917,14 @@
     }
 
     .gallery-card__caption {
-        font-size: 0.88rem;
-        padding: 10px 5px 12px 5px;
+        font-size: 0.78rem;
+        min-height: 40px;
+        padding: 8px 4px 10px 4px;
     }
 
     .gallery-card--aspect-3-4 .gallery-card__caption,
-    .gallery-card--aspect-4-5 .gallery-card__caption,
-    .gallery-card--aspect-4-3 .gallery-card__caption {
-        font-size: 0.73rem;
+    .gallery-card--aspect-4-5 .gallery-card__caption {
+        font-size: 0.72rem;
     }
 
     .gallery-fade {
@@ -915,11 +934,9 @@
 
 /* ── Responsive: Small Mobile ── */
 @media (max-width: 480px) {
-    .gallery-card__image-wrap {
-        height: 180px;
-    }
-
     .gallery-card {
+        --gallery-card-h: 165px;
+        width: calc(var(--gallery-card-w) + 12px);
         padding: 6px 6px 0 6px;
         border-radius: 8px;
     }
@@ -934,14 +951,14 @@
     }
 
     .gallery-card__caption {
-        font-size: 0.80rem;
-        padding: 8px 4px 10px 4px;
+        font-size: 0.72rem;
+        min-height: 36px;
+        padding: 6px 3px 8px 3px;
     }
 
     .gallery-card--aspect-3-4 .gallery-card__caption,
-    .gallery-card--aspect-4-5 .gallery-card__caption,
-    .gallery-card--aspect-4-3 .gallery-card__caption {
-        font-size: 0.67rem;
+    .gallery-card--aspect-4-5 .gallery-card__caption {
+        font-size: 0.65rem;
     }
 
     .gallery-fade {

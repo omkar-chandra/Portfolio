@@ -1,4 +1,4 @@
-/* ===========================================
+﻿/* ===========================================
    PORTFOLIO GRID & CARDS
    =========================================== */
 .portfolio-filter {
@@ -10,7 +10,7 @@
 }
 
 /* ===========================================
-   PORTFOLIO FILTER BUTTONS — Liquid Glass
+   PORTFOLIO FILTER BUTTONS � Liquid Glass
    =========================================== */
 @keyframes filterBtnLimeFlow {
     0% { background-position: 0% 50%, 100% 0%; }
@@ -23,7 +23,7 @@
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Inactive filter button — minimal frosted glass */
+/* Inactive filter button � minimal frosted glass */
 .portfolio-filter .glass-btn--ghost .glass-btn__bg {
     background: rgba(255, 255, 255, 0.055);
     backdrop-filter: blur(18px) saturate(160%) brightness(1.05);
@@ -51,7 +51,7 @@
 }
 
 
-/* Active filter button — Liquid Glass lime-green */
+/* Active filter button � Liquid Glass lime-green */
 .portfolio-filter .glass-btn--primary .glass-btn__bg {
     background: rgba(255, 255, 255, 0.07);
     backdrop-filter: blur(22px) saturate(170%) brightness(1.08);
@@ -132,7 +132,7 @@
     margin-bottom: 0;
 }
 
-/* Row 1 — 5 long-form 16:9 cards: top row of 3, bottom row of 2 centered */
+/* Row 1 � 5 long-form 16:9 cards: top row of 3, bottom row of 2 centered */
 .video-row--five {
     display: flex;
     flex-wrap: wrap;
@@ -147,7 +147,7 @@
     max-width: calc(33.333% - 21px);
 }
 
-/* Row 3 — Long-form 16:9, always 3 columns */
+/* Row 3 � Long-form 16:9, always 3 columns */
 .video-row--wide {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -160,7 +160,7 @@
     min-width: 0;
 }
 
-/* Shorts row — 3 per row */
+/* Shorts row � 3 per row */
 .video-row--shorts {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -198,7 +198,7 @@
         grid-column: auto;
     }
 
-    /* At 2-col, lone last card → center it */
+    /* At 2-col, lone last card ? center it */
     .video-row--shorts .project-card:last-child:nth-child(2n - 1) {
         grid-column: 1 / -1;
         width: 50%;
@@ -254,6 +254,9 @@
     flex-direction: column;
     gap: 48px;
     margin-top: 50px;
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .fs-wrapper {
@@ -324,7 +327,7 @@
     opacity: 0.7;
 }
 
-/* ── Tab Strip ── */
+/* -- Tab Strip -- */
 .portfolio-showcase-card__tabbar {
     position: relative;
     z-index: 1;
@@ -384,24 +387,24 @@
     padding: 2px 10px;
 }
 
-/* ── Card Body (Visual + Content Split) ── */
+/* -- Card Body (Visual + Content Split) -- */
 .portfolio-showcase-card__body {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 370px 1fr;
+    grid-template-columns: minmax(0, 370px) 1fr;
     align-items: center;
     gap: 48px;
     padding: 36px 44px 40px;
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    APPLE-STYLE LIQUID GLASS FOLDER (Ref 2 & 3)
    - Real macOS tabbed folder chassis
    - Layered stacked fanned thumbnail cards
    - Multi-layer frosted liquid glass front flap
    - Tactile hover physics & ambient color glow
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .portfolio-showcase-card__visual {
     display: flex;
     align-items: flex-end;
@@ -415,16 +418,16 @@
     min-height: 280px;
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    LIQUID GLASS FOLDER (References 2, 3, & 4)
    - Real macOS tabbed folder chassis
    - Layered stacked fanned thumbnail cards inside pocket
    - Multi-layer frosted liquid glass front flap
    - Iconic circular CTA action button (Ref 2/3 style)
    - Dynamic hover physics & ambient color glow
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 
-/* ── Outer Stage ── */
+/* -- Outer Stage -- */
 .lgf {
     position: relative;
     width: 350px;
@@ -445,8 +448,8 @@
 }
 
 .lgf--portrait {
-    width: 320px;
-    height: 270px;
+    width: 300px;
+    height: 310px;
 }
 
 .lgf--square {
@@ -459,7 +462,7 @@
     transform: translateY(-4px);
 }
 
-/* ── Ambient Underglow ── */
+/* -- Ambient Underglow -- */
 .lgf__ambient-glow {
     position: absolute;
     inset: -15px;
@@ -477,7 +480,7 @@
     transform: scale(1.12);
 }
 
-/* ── 1. Folder Backplate ── */
+/* -- 1. Folder Backplate -- */
 .lgf__back {
     position: absolute;
     inset: 0;
@@ -543,7 +546,7 @@
     user-select: none;
 }
 
-/* ── 2. Stacked Deck of Project Thumbnails (Inside Pocket) ── */
+/* -- 2. Stacked Deck of Project Thumbnails (Inside Pocket) -- */
 .lgf__deck {
     position: absolute;
     bottom: 12px;
@@ -559,8 +562,9 @@
 }
 
 .lgf--portrait .lgf__deck {
-    width: 270px;
-    height: 245px;
+    width: 260px;
+    height: 280px;
+    bottom: 12px;
 }
 
 .lgf--square .lgf__deck {
@@ -594,8 +598,8 @@
 
 /* Portrait format card dimensions */
 .lgf--portrait .lgf__card {
-    width: 160px;
-    height: 225px;
+    width: 146px;
+    height: 228px;
 }
 
 /* Square format card dimensions */
@@ -623,6 +627,21 @@
 .portfolio-showcase-card:hover .lgf__card-img,
 .lgf:hover .lgf__card-img {
     transform: scale(1.05);
+}
+
+/* Shorts Card Thumbnails: Full-bleed edge-to-edge coverage, no pillarboxing filler */
+.lgf--portrait .lgf__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.28);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-showcase-card:hover .lgf--portrait .lgf__card-img,
+.lgf:hover.lgf--portrait .lgf__card-img {
+    transform: scale(1.34);
 }
 
 .lgf__card-sheen {
@@ -657,19 +676,19 @@
 
 /* Portrait Resting */
 .lgf--portrait .lgf__card--left {
-    transform: translateX(-50px) translateY(-14px) rotate(-10deg) scale(0.92);
+    transform: translateX(-34px) translateY(-10px) rotate(-6deg) scale(0.95);
     z-index: 1;
     filter: brightness(0.85);
 }
 
 .lgf--portrait .lgf__card--right {
-    transform: translateX(50px) translateY(-14px) rotate(10deg) scale(0.92);
+    transform: translateX(34px) translateY(-10px) rotate(6deg) scale(0.95);
     z-index: 2;
     filter: brightness(0.88);
 }
 
 .lgf--portrait .lgf__card--center {
-    transform: translateX(0) translateY(-38px) rotate(0deg) scale(1);
+    transform: translateX(0) translateY(-26px) rotate(0deg) scale(1);
     z-index: 3;
     filter: brightness(1.03);
     border-color: rgba(255, 255, 255, 0.65);
@@ -701,7 +720,7 @@
         0 0 24px rgba(255, 255, 255, 0.1);
 }
 
-/* ── Interactive Physics: Hover Fanning ── */
+/* -- Interactive Physics: Hover Fanning -- */
 .portfolio-showcase-card:hover .lgf--landscape .lgf__card--left,
 .lgf:hover.lgf--landscape .lgf__card--left {
     transform: translateX(-80px) translateY(-32px) rotate(-15deg) scale(0.96);
@@ -729,21 +748,21 @@
 /* Portrait Hover */
 .portfolio-showcase-card:hover .lgf--portrait .lgf__card--left,
 .lgf:hover.lgf--portrait .lgf__card--left {
-    transform: translateX(-72px) translateY(-32px) rotate(-14deg) scale(0.96);
+    transform: translateX(-40px) translateY(-16px) rotate(-8deg) scale(0.97);
     filter: brightness(0.98);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 }
 
 .portfolio-showcase-card:hover .lgf--portrait .lgf__card--right,
 .lgf:hover.lgf--portrait .lgf__card--right {
-    transform: translateX(72px) translateY(-32px) rotate(14deg) scale(0.96);
+    transform: translateX(40px) translateY(-16px) rotate(8deg) scale(0.97);
     filter: brightness(0.98);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 }
 
 .portfolio-showcase-card:hover .lgf--portrait .lgf__card--center,
 .lgf:hover.lgf--portrait .lgf__card--center {
-    transform: translateX(0) translateY(-60px) rotate(0deg) scale(1.05);
+    transform: translateX(0) translateY(-34px) rotate(0deg) scale(1.02);
     filter: brightness(1.1);
     border-color: rgba(255, 255, 255, 0.9);
     box-shadow:
@@ -776,7 +795,7 @@
         0 0 32px rgba(255, 255, 255, 0.22);
 }
 
-/* ── 3. Apple Liquid Glass Front Flap ── */
+/* -- 3. Apple Liquid Glass Front Flap -- */
 .lgf__front {
     position: absolute;
     bottom: 0;
@@ -939,9 +958,9 @@
         0 0 16px rgba(255, 255, 255, 0.25);
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    INFORMATION PANEL & TYPOGRAPHY
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .portfolio-showcase-card__content {
     display: flex;
     flex-direction: column;
@@ -1010,9 +1029,9 @@
     color: rgba(255, 255, 255, 0.95);
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    APPLE LIQUID GLASS CTA BUTTON
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .portfolio-showcase-card__actions {
     margin-top: 4px;
 }
@@ -1151,9 +1170,9 @@
 }
 
 
-/* ────────────────────────────────────────────
+/* --------------------------------------------
    OPEN FOLDER STATE
-   ──────────────────────────────────────────── */
+   -------------------------------------------- */
 .fs-open {
     background: linear-gradient(135deg,
             rgba(14, 14, 18, 0.99) 0%,
@@ -1175,6 +1194,10 @@
     padding: 14px 22px;
     background: rgba(255, 255, 255, 0.025);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 0;
+    box-sizing: border-box;
 }
 
 .fs-open__bar-left {
@@ -1279,7 +1302,7 @@
     opacity: 0.5;
 }
 
-/* ── Grid (inside open folder) ── */
+/* -- Grid (inside open folder) -- */
 .fs-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -1389,19 +1412,43 @@
     display: block;
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    OPEN FOLDER GRID CARDS (fs-grid-card)
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .fs-grid--landscape {
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
     gap: 22px;
     padding: 28px 28px 34px;
 }
 
+.fs-grid--landscape > .fs-grid__item {
+    width: calc(33.333% - 15px);
+    max-width: calc(33.333% - 15px);
+    flex: 0 0 calc(33.333% - 15px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
 .fs-grid--portrait {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 28px 28px 34px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 24px 30px;
+}
+
+.fs-grid--portrait > .fs-grid__item {
+    width: calc(25% - 12px);
+    max-width: calc(25% - 12px);
+    flex: 0 0 calc(25% - 12px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .fs-grid--square {
@@ -1465,11 +1512,23 @@
 
 .fs-grid-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(var(--fa-rgb, 0, 255, 204), 0.35);
+    border-color: rgba(var(--fa-rgb, 0, 255, 204), 0.45);
     box-shadow:
         0 20px 48px rgba(0, 0, 0, 0.6),
-        0 0 24px rgba(var(--fa-rgb, 0, 255, 204), 0.12),
-        0 0 0 1px rgba(var(--fa-rgb, 0, 255, 204), 0.2);
+        0 0 28px rgba(var(--fa-rgb, 0, 255, 204), 0.18),
+        0 0 56px rgba(var(--fa-rgb, 0, 255, 204), 0.08),
+        0 0 0 1px rgba(var(--fa-rgb, 0, 255, 204), 0.25);
+}
+
+/* Video cards: stronger color-matched glow */
+.fs-grid-card--video:hover {
+    transform: translateY(-5px);
+    border-color: rgba(var(--fa-rgb, 0, 255, 204), 0.5);
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.65),
+        0 0 32px rgba(var(--fa-rgb, 0, 255, 204), 0.22),
+        0 0 64px rgba(var(--fa-rgb, 0, 255, 204), 0.1),
+        0 0 0 1px rgba(var(--fa-rgb, 0, 255, 204), 0.3);
 }
 
 .fs-grid-card__media {
@@ -1616,14 +1675,14 @@
 }
 
 .fs-grid-card__meta {
-    padding: 14px 16px 16px;
+    padding: 12px 14px 14px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    flex: 1;
-    justify-content: space-between;
+    gap: 6px;
+    flex: 0 0 auto;
+    justify-content: flex-start;
     z-index: 2;
-    min-height: 78px;
+    min-height: 70px;
     box-sizing: border-box;
 }
 
@@ -1637,6 +1696,25 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* Shorts Grid Card Titles — Compact, clean & readable */
+.fs-grid--portrait .fs-grid-card__name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+}
+
+.fs-grid--portrait .fs-grid-card__meta {
+    padding: 8px 10px 10px;
+    min-height: 50px;
+    gap: 3px;
+}
+
+.fs-grid--portrait .fs-grid-card__tag {
+    font-size: 0.56rem;
+    padding: 2px 5px;
 }
 
 .fs-grid-card__tags {
@@ -1661,9 +1739,18 @@
     flex-shrink: 0;
 }
 
-/* ──────────────────────────────────────────
+/* ------------------------------------------
    RESPONSIVE SHOWCASE BREAKPOINTS
-   ────────────────────────────────────────── */
+   ------------------------------------------ */
+
+/* Prevent showcase cards and open folders from causing horizontal overflow */
+.fs-wrapper,
+.portfolio-showcase-card,
+.fs-open {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 @media (max-width: 1100px) {
     .portfolio-showcase-card__body {
         grid-template-columns: 1fr;
@@ -1676,77 +1763,196 @@
     }
 
     .fs-grid--landscape {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+
+    .fs-grid--landscape > .fs-grid__item {
+        width: calc(50% - 11px);
+        max-width: calc(50% - 11px);
+        flex: 0 0 calc(50% - 11px);
     }
 
     .fs-grid--portrait {
-        grid-template-columns: repeat(3, 1fr);
+        /* 3 per row at medium screens */
+    }
+
+    .fs-grid--portrait > .fs-grid__item {
+        width: calc(33.333% - 11px);
+        max-width: calc(33.333% - 11px);
+        flex: 0 0 calc(33.333% - 11px);
     }
 }
 
+/* ------------------------------------------
+   MOBILE & TABLET PORTFOLIO (= 768px)
+   ------------------------------------------ */
+@media (max-width: 768px) {
+    /* Always display play indicator on touch screens */
+    .fs-grid-card__play {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(0.85);
+        background: rgba(0, 0, 0, 0.45);
+        border-color: rgba(255, 255, 255, 0.35);
+    }
+}
+
+/* ------------------------------------------
+   MOBILE PORTFOLIO (= 640px)
+   ------------------------------------------ */
 @media (max-width: 640px) {
     .portfolio-showcase-card__body {
-        padding: 24px 18px 28px;
-        gap: 28px;
+        padding: 22px 16px 26px;
+        gap: 24px;
     }
 
+    /* Adequate top clearance so fanned cards and folder tab are never cut off */
     .portfolio-showcase-card__visual {
-        padding-top: 36px;
-        min-height: 230px;
+        padding-top: 48px;
+        padding-bottom: 12px;
+        min-height: 220px;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
+    /* Folder sizing scaled to mobile screen */
     .lgf {
-        width: 290px;
-        height: 200px;
+        max-width: 100%;
     }
 
     .lgf--landscape {
-        width: 290px;
-        height: 200px;
-    }
-
-    .lgf--landscape .lgf__deck {
-        width: 250px;
-        height: 160px;
-    }
-
-    .lgf--landscape .lgf__card {
-        width: 200px;
-        height: 124px;
-    }
-
-    .lgf--portrait {
-        width: 260px;
-        height: 230px;
-    }
-
-    .lgf--portrait .lgf__deck {
-        width: 215px;
-        height: 200px;
-    }
-
-    .lgf--portrait .lgf__card {
-        width: 132px;
+        width: min(270px, 80vw);
         height: 185px;
     }
 
+    .lgf--landscape .lgf__deck {
+        width: min(230px, 70vw);
+        height: 148px;
+    }
+
+    .lgf--landscape .lgf__card {
+        width: min(180px, 55vw);
+        height: 112px;
+        border-radius: 10px;
+    }
+
+    /* Scaled transforms so fanned cards stay safely inside the card */
+    .lgf--landscape .lgf__card--left {
+        transform: translateX(-34px) translateY(-12px) rotate(-8deg) scale(0.92);
+    }
+
+    .lgf--landscape .lgf__card--right {
+        transform: translateX(34px) translateY(-12px) rotate(8deg) scale(0.92);
+    }
+
+    .lgf--landscape .lgf__card--center {
+        transform: translateX(0) translateY(-28px) rotate(0deg) scale(1);
+    }
+
+    .portfolio-showcase-card:hover .lgf--landscape .lgf__card--left,
+    .lgf:hover.lgf--landscape .lgf__card--left {
+        transform: translateX(-46px) translateY(-22px) rotate(-11deg) scale(0.95);
+    }
+
+    .portfolio-showcase-card:hover .lgf--landscape .lgf__card--right,
+    .lgf:hover.lgf--landscape .lgf__card--right {
+        transform: translateX(46px) translateY(-22px) rotate(11deg) scale(0.95);
+    }
+
+    .portfolio-showcase-card:hover .lgf--landscape .lgf__card--center,
+    .lgf:hover.lgf--landscape .lgf__card--center {
+        transform: translateX(0) translateY(-42px) rotate(0deg) scale(1.02);
+    }
+
+    /* Portrait Folder */
+    .lgf--portrait {
+        width: min(240px, 72vw);
+        height: 260px;
+    }
+
+    .lgf--portrait .lgf__deck {
+        width: min(200px, 60vw);
+        height: 230px;
+        bottom: 10px;
+    }
+
+    .lgf--portrait .lgf__card {
+        width: min(116px, 35vw);
+        height: min(180px, 54vw);
+        border-radius: 10px;
+    }
+
+    .lgf--portrait .lgf__card-left,
+    .lgf--portrait .lgf__card--left {
+        transform: translateX(-24px) translateY(-8px) rotate(-5deg) scale(0.95);
+    }
+
+    .lgf--portrait .lgf__card--right {
+        transform: translateX(24px) translateY(-8px) rotate(5deg) scale(0.95);
+    }
+
+    .lgf--portrait .lgf__card--center {
+        transform: translateX(0) translateY(-20px) rotate(0deg) scale(1);
+    }
+
+    .portfolio-showcase-card:hover .lgf--portrait .lgf__card--left,
+    .lgf:hover.lgf--portrait .lgf__card--left {
+        transform: translateX(-30px) translateY(-14px) rotate(-7deg) scale(0.97);
+    }
+
+    .portfolio-showcase-card:hover .lgf--portrait .lgf__card--right,
+    .lgf:hover.lgf--portrait .lgf__card--right {
+        transform: translateX(30px) translateY(-14px) rotate(7deg) scale(0.97);
+    }
+
+    .portfolio-showcase-card:hover .lgf--portrait .lgf__card--center,
+    .lgf:hover.lgf--portrait .lgf__card--center {
+        transform: translateX(0) translateY(-26px) rotate(0deg) scale(1.02);
+    }
+
+    /* Square Folder */
     .lgf--square {
-        width: 270px;
-        height: 210px;
+        width: min(245px, 74vw);
+        height: 195px;
     }
 
     .lgf--square .lgf__deck {
-        width: 225px;
-        height: 175px;
+        width: min(205px, 62vw);
+        height: 160px;
     }
 
     .lgf--square .lgf__card {
-        width: 155px;
-        height: 155px;
+        width: min(138px, 42vw);
+        height: min(138px, 42vw);
+        border-radius: 10px;
     }
 
-    .lgf__card {
-        border-radius: 11px;
+    .lgf--square .lgf__card--left {
+        transform: translateX(-32px) translateY(-10px) rotate(-8deg) scale(0.92);
+    }
+
+    .lgf--square .lgf__card--right {
+        transform: translateX(32px) translateY(-10px) rotate(8deg) scale(0.92);
+    }
+
+    .lgf--square .lgf__card--center {
+        transform: translateX(0) translateY(-26px) rotate(0deg) scale(1);
+    }
+
+    .portfolio-showcase-card:hover .lgf--square .lgf__card--left,
+    .lgf:hover.lgf--square .lgf__card--left {
+        transform: translateX(-44px) translateY(-20px) rotate(-11deg) scale(0.95);
+    }
+
+    .portfolio-showcase-card:hover .lgf--square .lgf__card--right,
+    .lgf:hover.lgf--square .lgf__card--right {
+        transform: translateX(44px) translateY(-20px) rotate(11deg) scale(0.95);
+    }
+
+    .portfolio-showcase-card:hover .lgf--square .lgf__card--center,
+    .lgf:hover.lgf--square .lgf__card--center {
+        transform: translateX(0) translateY(-40px) rotate(0deg) scale(1.02);
     }
 
     .lgf__action-circle {
@@ -1759,30 +1965,192 @@
         height: 13px;
     }
 
+    /* Showcase card content */
+    .portfolio-showcase-card__title {
+        font-size: clamp(1.4rem, 6vw, 1.85rem);
+    }
+
+    .portfolio-showcase-card__subtitle {
+        font-size: 0.85rem;
+    }
+
     .portfolio-showcase-card__cta-btn {
         width: 100%;
         justify-content: center;
     }
 
-    .fs-grid--landscape,
-    .fs-grid--portrait {
-        grid-template-columns: 1fr;
-        padding: 16px 14px 20px;
-    }
-
-    .fs-grid--square {
-        padding: 16px 14px 20px;
+    /* Open Folder Bar */
+    .fs-open__bar {
+        padding: 12px 14px;
+        min-height: 46px;
     }
 
     .fs-open__dots {
         display: none;
     }
+
+    .fs-open__breadcrumb {
+        font-size: 0.78rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .fs-close-btn {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        font-size: 0.75rem;
+    }
+
+    /* Open Folder Grids */
+    .fs-grid--landscape {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 14px 10px 18px;
+        gap: 12px;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .fs-grid--landscape > .fs-grid__item {
+        width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    /* 2 columns for portrait shorts on mobile - perfect reel grid */
+    .fs-grid--portrait {
+        padding: 14px 10px 18px;
+        gap: 12px;
+    }
+
+    .fs-grid--portrait > .fs-grid__item {
+        width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .fs-grid--square {
+        padding: 14px 10px 18px;
+        gap: 12px;
+    }
+
+    .fs-grid--square > .fs-grid__item {
+        width: calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .fs-grid-card__meta {
+        padding: 10px 10px 12px;
+        gap: 4px;
+    }
+
+    .fs-grid-card__name {
+        font-size: 0.84rem;
+        line-height: 1.25;
+    }
+
+    .fs-grid-card__tag {
+        font-size: 0.58rem;
+        padding: 2px 6px;
+    }
 }
 
+/* ------------------------------------------
+   SMALL MOBILES (= 380px)
+   ------------------------------------------ */
+@media (max-width: 380px) {
+    .portfolio-showcase-card__body {
+        padding: 18px 12px 22px;
+        gap: 20px;
+    }
 
+    .portfolio-showcase-card__visual {
+        padding-top: 42px;
+    }
 
+    .lgf--landscape {
+        width: min(240px, 86vw);
+        height: 165px;
+    }
 
-/* ── Folder Tab (the sticky tab at the top) ── */
+    .lgf--landscape .lgf__deck {
+        width: min(205px, 74vw);
+        height: 132px;
+    }
+
+    .lgf--landscape .lgf__card {
+        width: min(160px, 58vw);
+        height: 100px;
+    }
+
+    .lgf--portrait {
+        width: min(210px, 76vw);
+        height: 235px;
+    }
+
+    .lgf--portrait .lgf__deck {
+        width: min(175px, 64vw);
+        height: 210px;
+    }
+
+    .lgf--portrait .lgf__card {
+        width: min(100px, 36vw);
+        height: min(155px, 56vw);
+    }
+
+    .lgf--square {
+        width: min(220px, 80vw);
+        height: 175px;
+    }
+
+    .lgf--square .lgf__deck {
+        width: min(185px, 68vw);
+        height: 145px;
+    }
+
+    .lgf--square .lgf__card {
+        width: min(125px, 46vw);
+        height: min(125px, 46vw);
+    }
+
+    .fs-grid--portrait {
+        padding: 10px 6px 14px;
+        gap: 8px;
+    }
+
+    .fs-grid--portrait > .fs-grid__item {
+        width: calc(50% - 4px);
+        max-width: calc(50% - 4px);
+        flex: 0 0 calc(50% - 4px);
+    }
+
+    .fs-grid--square > .fs-grid__item {
+        width: calc(50% - 4px);
+        max-width: calc(50% - 4px);
+        flex: 0 0 calc(50% - 4px);
+    }
+
+    .portfolio-showcase-card__tabbar {
+        padding: 8px 12px;
+    }
+
+    .portfolio-showcase-card__pill-text {
+        font-size: 0.65rem;
+    }
+
+    /* Very small: landscape grid drops to single column */
+    .fs-grid--landscape {
+        grid-template-columns: 1fr;
+        padding: 12px 8px 16px;
+        gap: 10px;
+    }
+}
+
+/* -- Folder Tab (the sticky tab at the top) -- */
 .folder-tab {
     display: inline-flex;
     align-items: center;
@@ -1807,7 +2175,7 @@
     font-size: 0.9rem;
 }
 
-/* ── Folder Body ── */
+/* -- Folder Body -- */
 .folder-body {
     position: relative;
     width: 100%;
@@ -1826,7 +2194,7 @@
     border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* ── Folder Cover (closed state) ── */
+/* -- Folder Cover (closed state) -- */
 .folder-cover {
     width: 100%;
     display: grid;
@@ -1864,7 +2232,7 @@
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Stack positions — each thumb offset from previous */
+/* Stack positions � each thumb offset from previous */
 .folder-cover__thumb:nth-child(1) {
     left: 0px;
     top: 10px;
@@ -1987,7 +2355,7 @@
     transform: translate(3px, -3px);
 }
 
-/* ── Open Folder State ── */
+/* -- Open Folder State -- */
 .folder-open {
     padding: 28px 36px 36px;
 }
@@ -2057,7 +2425,7 @@
     color: #fff;
 }
 
-/* ── Folder Grid ── */
+/* -- Folder Grid -- */
 .folder-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2130,7 +2498,26 @@
     white-space: nowrap;
 }
 
-/* Responsive — 3 cols on tablet */
+/* Shorts Grid Card Titles — Compact, clean & readable */
+.fs-grid--portrait .fs-grid-card__name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+}
+
+.fs-grid--portrait .fs-grid-card__meta {
+    padding: 10px 10px 12px;
+    min-height: 58px;
+    gap: 4px;
+}
+
+.fs-grid--portrait .fs-grid-card__tag {
+    font-size: 0.6rem;
+    padding: 2px 7px;
+}
+
+/* Responsive � 3 cols on tablet */
 @media (max-width: 1024px) {
     .folder-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -2143,7 +2530,7 @@
     }
 }
 
-/* Responsive — 2 cols on small tablet */
+/* Responsive � 2 cols on small tablet */
 @media (max-width: 768px) {
     .folder-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2175,7 +2562,7 @@
     }
 }
 
-/* Responsive — 1 col on phone */
+/* Responsive � 1 col on phone */
 @media (max-width: 480px) {
     .folder-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2489,9 +2876,9 @@
 }
 
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    macOS-STYLE WINDOW VIEWER (Posters & Logos)
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .macos-overlay {
     position: fixed;
     inset: 0;
@@ -2609,7 +2996,7 @@
     background: #09090c;
 }
 
-/* ── macOS Window Responsive ── */
+/* -- macOS Window Responsive -- */
 @media (max-width: 640px) {
     .macos-window {
         width: 94vw;
@@ -2640,9 +3027,9 @@
     }
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    UNIFIED MORPHING MODAL & GREEN MATTE CUTTING MAT (Ref 3)
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .morph-overlay {
     position: fixed;
     inset: 0;
@@ -2656,14 +3043,14 @@
     -webkit-user-select: none;
 }
 
-/* ── Image Preview Studio Overlay ── */
+/* -- Image Preview Studio Overlay -- */
 .morph-overlay--studio {
     background: rgba(6, 8, 14, 0.82);
     backdrop-filter: blur(28px) saturate(160%);
     -webkit-backdrop-filter: blur(28px) saturate(160%);
 }
 
-/* ── Video Preview: Authentic Green Matte Cutting Mat (Ref 3) ── */
+/* -- Video Preview: Authentic Green Matte Cutting Mat (Ref 3) -- */
 .morph-overlay--cutting-mat {
     background: #152e22;
 }
@@ -2780,7 +3167,7 @@
     font-weight: 600;
 }
 
-/* ── Floating Corner Close Button ── */
+/* -- Floating Corner Close Button -- */
 .morph-close-corner {
     position: fixed;
     top: 24px;
@@ -2812,10 +3199,10 @@
     color: #ff6060;
 }
 
-/* ═════════════════════════════════════════════
+/* ---------------------------------------------
    MORPHING WINDOW SHELL
    Fixed to viewport, zero layout shift, centered
-   ═════════════════════════════════════════════ */
+   --------------------------------------------- */
 .morph-window {
     background: #111217;
     border-radius: 16px;
@@ -2877,7 +3264,7 @@
     background: #08080e;
 }
 
-/* ── macOS Titlebar ── */
+/* -- macOS Titlebar -- */
 .morph-window__titlebar {
     display: flex;
     align-items: center;
@@ -2967,7 +3354,7 @@
     width: 64px;
 }
 
-/* ── Content Body ── */
+/* -- Content Body -- */
 .morph-window__body {
     width: 100%;
     position: relative;
@@ -3004,26 +3391,36 @@
     background: #08080e;
 }
 
-/* ── Responsive adjustments ── */
+/* -- Responsive adjustments -- */
 @media (max-width: 640px) {
     .morph-overlay {
         padding: 12px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .morph-window {
+        max-height: 90dvh;
     }
 
     .morph-window--video-landscape {
-        width: 96vw;
-        max-width: 96vw;
+        width: min(calc((82dvh - 42px) * 16 / 9), 95vw, 680px);
+        max-width: 95vw;
     }
 
     .morph-window--video-portrait {
-        width: 92vw;
+        width: min(calc((80dvh - 42px) * 9 / 16), 88vw, 360px);
+        max-width: 88vw;
+    }
+
+    .morph-window--image {
+        width: min(calc(82dvh - 42px), 92vw, 560px);
         max-width: 92vw;
     }
 
-    .morph-window--image,
     .morph-window--image-4-5 {
-        width: 94vw;
-        max-width: 94vw;
+        width: min(calc((82dvh - 42px) * 4 / 5), 92vw, 520px);
+        max-width: 92vw;
     }
 
     .morph-window__titlebar {
@@ -3038,15 +3435,20 @@
 
     .morph-window__dots,
     .morph-window__spacer {
-        width: 46px;
+        width: 44px;
+    }
+
+    .morph-window__title {
+        font-size: 0.76rem;
     }
 
     .morph-close-corner {
-        top: 14px;
-        right: 14px;
-        width: 38px;
-        height: 38px;
-        font-size: 0.9rem;
+        top: 12px;
+        right: 12px;
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
+        z-index: 100000;
     }
 
     .cutting-mat-stamp {
@@ -3054,11 +3456,9 @@
     }
 }
 
-
-
-/* ═════════════════════════════════════════════
-   PREMIUM GRID CARD HOVER — Scanning Shine
-   ═════════════════════════════════════════════ */
+/* ---------------------------------------------
+   PREMIUM GRID CARD HOVER � Scanning Shine
+   --------------------------------------------- */
 .fs-grid__shine {
     position: absolute;
     inset: 0;
@@ -3086,460 +3486,5 @@
 
     100% {
         background-position: 200% 0;
-    }
-}
-
-
-/* ═════════════════════════════════════════════
-   REDESIGNED VIDEO SECTION (fs-video-card & grids)
-   ═════════════════════════════════════════════ */
-
-/* ── Landscape Grid (16:9) ── */
-.fs-grid--video-landscape {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-    padding: 30px 28px 36px;
-}
-
-/* ── Portrait Grid (9:16 Shorts & Reels) ── */
-.fs-grid--video-portrait {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-    padding: 30px 28px 36px;
-}
-
-/* ── Video Card Outer Shell ── */
-.fs-video-card {
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(160deg,
-            rgba(22, 22, 30, 0.75) 0%,
-            rgba(12, 12, 18, 0.9) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    overflow: hidden;
-    cursor: pointer;
-    position: relative;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    height: 100%;
-    transition:
-        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.4s ease,
-        box-shadow 0.45s ease;
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.06) inset,
-        0 16px 36px rgba(0, 0, 0, 0.45);
-}
-
-.fs-video-card:hover {
-    transform: translateY(-7px);
-    border-color: rgba(var(--fa-rgb, 0, 255, 204), 0.32);
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.1) inset,
-        0 28px 60px rgba(0, 0, 0, 0.65),
-        0 0 32px rgba(var(--fa-rgb, 0, 255, 204), 0.10),
-        0 0 0 1px rgba(var(--fa-rgb, 0, 255, 204), 0.18);
-}
-
-/* Landscape (Video) cards — explicit teal */
-.fs-video-card--landscape {
-    --fa: #00ffcc;
-    --fa-rgb: 0, 255, 204;
-}
-
-/* Portrait (Reel) cards — explicit purple */
-.fs-video-card--portrait {
-    --fa: #a855f7;
-    --fa-rgb: 168, 85, 247;
-}
-
-/* ── Media Preview Container ── */
-.fs-video-card__media {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    background: #07070a;
-}
-
-.fs-video-card__media--landscape {
-    aspect-ratio: 16 / 9;
-}
-
-.fs-video-card__media--portrait {
-    aspect-ratio: 9 / 16;
-}
-
-.fs-video-card__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: contrast(1.04) brightness(0.96);
-    transition:
-        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 0.4s ease;
-}
-
-.fs-video-card:hover .fs-video-card__img {
-    transform: scale(1.07);
-    filter: contrast(1.08) brightness(1.04);
-}
-
-/* ── Gradient Overlay ── */
-.fs-video-card__gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top,
-            rgba(8, 8, 12, 0.95) 0%,
-            rgba(8, 8, 12, 0.3) 40%,
-            rgba(8, 8, 12, 0.1) 70%,
-            rgba(8, 8, 12, 0.4) 100%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* ── Top Bar Badging ── */
-.fs-video-card__topbar {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    z-index: 3;
-    pointer-events: none;
-}
-
-.fs-video-card__year {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.75);
-    background: rgba(14, 14, 20, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 3px 9px;
-    border-radius: 12px;
-}
-
-/* ── Thumbnail Play Button — clean, minimal Liquid Glass ──
-   Hidden by default, fades in on hover.
-   Subtle glass circle with soft glow — no heavy blur, no thick stroke.
-   ──────────────────────────────────── */
-.fs-video-card__play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.78);
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-
-    /* Minimal glass — very light tint, thin border, gentle blur */
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px) saturate(1.3);
-    -webkit-backdrop-filter: blur(8px) saturate(1.3);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.28),
-        0 4px 16px rgba(0, 0, 0, 0.3);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.88);
-    z-index: 3;
-    pointer-events: none;
-    opacity: 0;
-    transition:
-        transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.28s ease,
-        background 0.28s ease,
-        border-color 0.28s ease,
-        box-shadow 0.34s ease;
-}
-
-.fs-video-card__play-pulse {
-    display: none;
-}
-
-.fs-video-card__play svg {
-    margin-left: 3px;
-    transition: transform 0.28s ease;
-}
-
-/* Hover: glass brightens gently + soft ambient glow */
-.fs-video-card:hover .fs-video-card__play {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    background: rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(12px) saturate(1.6);
-    -webkit-backdrop-filter: blur(12px) saturate(1.6);
-    border-color: rgba(255, 255, 255, 0.30);
-    color: #fff;
-    box-shadow:
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.42),
-        /* Soft accent glow — not harsh, not neon */
-        0 0 20px rgba(var(--fa-rgb, 0, 255, 204), 0.22),
-        0 0 40px rgba(var(--fa-rgb, 0, 255, 204), 0.10),
-        0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.fs-video-card:hover .fs-video-card__play svg {
-    transform: scale(1.08);
-}
-
-/* ── Hover Overlay — play icon wrapper (hidden, play button handles this) ── */
-.fs-video-card__hover-bar {
-    display: none;
-}
-
-
-/* ── Card Metadata Area (Bottom) ── */
-.fs-video-card__meta {
-    padding: 16px 18px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    justify-content: space-between;
-    background: transparent;
-    z-index: 2;
-}
-
-.fs-video-card__title-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.fs-video-card__name {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.02rem;
-    font-weight: 800;
-    color: #fff;
-    margin: 0;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.fs-video-card__sub {
-    display: none;
-    /* hidden — keep card minimal: name + tags only */
-}
-
-/* ── Tag Chips ── */
-.fs-video-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-    margin-top: auto;
-    padding-top: 4px;
-}
-
-.fs-video-card__tag {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    color: rgba(255, 255, 255, 0.68);
-    white-space: nowrap;
-    transition: all 0.25s ease;
-}
-
-.fs-video-card__tag--tool {
-    background: rgba(var(--fa-rgb, 0, 255, 204), 0.08);
-    border-color: rgba(var(--fa-rgb, 0, 255, 204), 0.24);
-    color: var(--fa, #00ffcc);
-    font-weight: 700;
-}
-
-.fs-video-card:hover .fs-video-card__tag {
-    border-color: rgba(255, 255, 255, 0.16);
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.fs-video-card:hover .fs-video-card__tag--tool {
-    border-color: rgba(var(--fa-rgb, 0, 255, 204), 0.45);
-    color: var(--fa, #00ffcc);
-    box-shadow: 0 0 10px rgba(var(--fa-rgb, 0, 255, 204), 0.2);
-}
-
-/* ── Scanning Light Sheen ── */
-.fs-video-card__shine {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg,
-            transparent 35%,
-            rgba(255, 255, 255, 0.08) 50%,
-            transparent 65%);
-    background-size: 200% 100%;
-    background-position: -100% 0;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 2;
-    transition: opacity 0.3s ease;
-}
-
-.fs-video-card:hover .fs-video-card__shine {
-    opacity: 1;
-    animation: videoCardShine 0.85s ease forwards;
-}
-
-@keyframes videoCardShine {
-    0% {
-        background-position: -100% 0;
-    }
-
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* ═════════════════════════════════════════════
-   RESPONSIVE VIDEO SECTION BREAKPOINTS
-   ═════════════════════════════════════════════ */
-
-/* Large desktop (>= 1200px) */
-@media (min-width: 1200px) {
-    .fs-grid--video-landscape {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .fs-grid--video-portrait {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-/* Laptop / Standard Desktop (960px - 1199px) */
-@media (max-width: 1199px) and (min-width: 900px) {
-    .fs-grid--video-landscape {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 22px;
-        padding: 24px 22px 30px;
-    }
-
-    .fs-grid--video-portrait {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-        padding: 24px 22px 30px;
-    }
-}
-
-/* Tablet (641px - 899px) */
-@media (max-width: 899px) and (min-width: 641px) {
-    .fs-grid--video-landscape {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-        padding: 20px 18px 24px;
-    }
-
-    .fs-grid--video-portrait {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-        padding: 20px 18px 24px;
-    }
-
-    .fs-video-card__name {
-        font-size: 0.95rem;
-    }
-
-    .fs-video-card__meta {
-        padding: 12px 14px 16px;
-    }
-}
-
-/* Mobile Devices (<= 640px) */
-@media (max-width: 640px) {
-    .fs-grid--video-landscape {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 16px 14px 20px;
-        max-width: 440px;
-        margin: 0 auto;
-    }
-
-    .fs-grid--video-portrait {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 16px 12px 20px;
-    }
-
-    .fs-video-card {
-        border-radius: 14px;
-    }
-
-    .fs-video-card__meta {
-        padding: 12px 12px 14px;
-        gap: 8px;
-    }
-
-    .fs-video-card__name {
-        font-size: 0.88rem;
-        line-height: 1.25;
-    }
-
-    .fs-video-card__sub {
-        font-size: 0.72rem;
-    }
-
-    .fs-video-card__tag,
-    .fs-video-card__tool {
-        font-size: 0.58rem;
-        padding: 2px 7px;
-    }
-
-    .fs-video-card__badge,
-    .fs-video-card__year {
-        font-size: 0.58rem;
-        padding: 2px 7px;
-    }
-
-    .fs-video-card__play {
-        width: 42px;
-        height: 42px;
-    }
-
-    .fs-video-card__play svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .fs-video-card__hover-bar {
-        display: none;
-        /* keep touch interface clean */
-    }
-}
-
-/* Ultra-compact phones (< 380px) */
-@media (max-width: 380px) {
-    .fs-grid--video-portrait {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        padding: 12px 8px 16px;
-    }
-
-    .fs-video-card__meta {
-        padding: 10px 8px 12px;
-    }
-
-    .fs-video-card__name {
-        font-size: 0.8rem;
     }
 }

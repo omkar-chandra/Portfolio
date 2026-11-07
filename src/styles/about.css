@@ -50,6 +50,9 @@
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     will-change: transform;
     border-radius: 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .about-tilt-card:hover {
@@ -77,13 +80,19 @@
 /* ── Image Card ── */
 .about-card--image {
     padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .about-card__image-wrap {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 500px;
+    flex: 1;
+    min-height: 520px;
+    border-radius: inherit;
+    overflow: hidden;
 }
 
 .about-card__insta-link {
@@ -97,6 +106,7 @@
     text-decoration: none;
     /* Transparent and seamless interaction */
     background: transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .about-card__img {
@@ -280,6 +290,69 @@
     will-change: opacity;
 }
 
+/* ── @omkar_Chandra Hover Image Reveal ── */
+/*
+  Overlay system: fills the entire image card exactly (matches PixelRevealImage bounds).
+  Triggered by mouse events on the existing about-card__insta-link anchor above.
+*/
+.about-hover-reveal-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none; /* fully non-interactive — parent insta-link owns mouse events */
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+/* Full image reveal panel — Landon-Norris wipe style */
+.about-hover-reveal-img-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+    will-change: clip-path, opacity;
+}
+
+.about-hover-reveal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    will-change: transform;
+    /* Slight Ken-Burns entrance scale */
+    animation: hoverImgKenBurns 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hoverImgKenBurns {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1.00); }
+}
+
+/* Glossy reflective sheen that sweeps across on reveal */
+.about-hover-reveal-sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        115deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.10) 48%,
+        rgba(255, 255, 255, 0.18) 52%,
+        transparent 70%
+    );
+    background-size: 200% 100%;
+    pointer-events: none;
+    animation: hoverSheenSwipe 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    z-index: 1;
+}
+
+@keyframes hoverSheenSwipe {
+    from { background-position: 150% 0; opacity: 1; }
+    to   { background-position: -50% 0; opacity: 0; }
+}
+
 /* ── Timeline Cards ── */
 .about-timeline-cards {
     display: flex;
@@ -404,14 +477,35 @@
 @media (max-width: 900px) {
     .about-cards-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .about-card--image {
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .about-card__image-wrap {
-        min-height: 350px;
+        aspect-ratio: 4 / 5;
+        min-height: 440px;
+        max-height: 580px;
+        height: auto;
     }
 }
 
 @media (max-width: 600px) {
+    .about-card--image {
+        max-width: 100%;
+    }
+
+    .about-card__image-wrap {
+        aspect-ratio: 4 / 5;
+        min-height: 360px;
+        max-height: 480px;
+        height: auto;
+    }
+
     .about-card__content {
         padding: 30px 24px;
     }
@@ -425,6 +519,13 @@
         font-size: clamp(2rem, 10vw, 3rem);
         white-space: normal;
         word-break: break-word;
+    }
+}
+
+@media (max-width: 400px) {
+    .about-card__image-wrap {
+        min-height: 310px;
+        max-height: 400px;
     }
 }
 

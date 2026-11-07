@@ -2188,7 +2188,7 @@
     width: 100%;
     max-width: 680px;
     aspect-ratio: 16 / 9;
-    background: radial-gradient(ellipse at center, #0a1208 0%, #040504 100%);
+    background: #060907;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
@@ -2220,28 +2220,7 @@
 .crosshair--br { bottom: 6px; right: 8px; }
 
 .center-reticle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 14px;
-    height: 14px;
-    border: 1px solid rgba(179, 227, 43, 0.25);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-.center-reticle::before,
-.center-reticle::after {
-    content: '';
-    position: absolute;
-    background: rgba(179, 227, 43, 0.2);
-}
-.center-reticle::before {
-    top: 50%; left: -8px; right: -8px; height: 1px;
-    transform: translateY(-50%);
-}
-.center-reticle::after {
-    left: 50%; top: -8px; bottom: -8px; width: 1px;
-    transform: translateX(-50%);
+    display: none;
 }
 
 .motion-elem {
@@ -2273,7 +2252,7 @@
 /* Shape wrap â€” centers the shape in stage */
 .motion-shape-wrap {
     position: absolute;
-    top: 50%;
+    top: 28%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -2281,6 +2260,7 @@
     justify-content: center;
     pointer-events: none;
     will-change: transform;
+    z-index: 2;
 }
 
 .motion-elem--ring {
@@ -2292,17 +2272,119 @@
     transform: translate(-50%, -50%);
 }
 
+/* LottieFiles Inspired Stage Canvas Toolbar */
+.motion-stage-toolbar {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.stage-tool-group {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(10, 16, 12, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 3px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.stage-tool-btn {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.stage-tool-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.stage-tool-btn.is-active {
+    color: #B3E32B;
+    background: rgba(179, 227, 43, 0.16);
+    }
+
+.stage-tool-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 0 4px;
+}
+
+.stage-zoom-indicator {
+    font-family: monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+    padding: 0 4px;
+}
+
+.stage-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(10, 16, 12, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.stage-breadcrumb__proj {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.stage-breadcrumb__sep {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.stage-breadcrumb__scene {
+    color: #B3E32B;
+    font-weight: 700;
+}
+
 .motion-elem--text {
     font-family: var(--font-display);
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
-    font-weight: 900;
+    font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+    font-weight: 800;
     color: #ffffff;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     white-space: nowrap;
     position: absolute;
-    bottom: 18%;
+    top: 48px;
     left: 50%;
     transform: translateX(-50%);
+    text-transform: uppercase;
+    background: rgba(8, 12, 8, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 4px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(179, 227, 43, 0.3);
+    pointer-events: none;
+    z-index: 6;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 10px rgba(179, 227, 43, 0.1);
 }
 
 /* Vector Character Container */
@@ -2310,15 +2392,19 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -55%);
+    /* Base centering — inline style adds animation offsets on top */
+    transform: translate(-50%, -50%);
     pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
     will-change: transform, filter;
+    z-index: 3;
 }
 
 .motion-char-svg {
+    max-width: 95%;
+    height: auto;
     overflow: visible;
 }
 
@@ -2383,8 +2469,7 @@
     background: rgba(179, 227, 43, 0.15);
     border-color: rgba(179, 227, 43, 0.45);
     color: #B3E32B;
-    box-shadow: 0 0 12px rgba(179, 227, 43, 0.15);
-}
+    }
 
 /* Keyframe Timeline Bar */
 .motion-keyframe-bar {
@@ -2453,19 +2538,16 @@
     cursor: pointer;
     z-index: 4;
     transition: transform 0.15s ease, color 0.15s ease, filter 0.15s ease;
-    filter: drop-shadow(0 0 4px rgba(179, 227, 43, 0.5));
-}
+    }
 
 .keyframe-diamond:hover {
     color: #ffffff;
     transform: translate(-50%, -50%) scale(1.35);
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
-}
+    }
 
 .keyframe-diamond.is-active {
     color: #ffffff;
-    filter: drop-shadow(0 0 8px #B3E32B);
-}
+    }
 
 .motion-keyframe-playhead {
     position: absolute;
@@ -2473,7 +2555,7 @@
     bottom: -5px;
     width: 2px;
     background: #B3E32B;
-    box-shadow: 0 0 10px rgba(179, 227, 43, 0.95), 0 0 20px rgba(179, 227, 43, 0.4);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
     border-radius: 1px;
     pointer-events: none;
     z-index: 5;
@@ -2642,7 +2724,7 @@
 
 .color-img--graded {
     z-index: 1;
-    position: relative;
+    position: absolute;
 }
 
 .color-graded-layer {
@@ -2675,28 +2757,41 @@
     transition: background-color 0.15s ease, opacity 0.15s ease;
 }
 
+.color-lut-tone-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: soft-light;
+    transition: opacity 0.25s ease;
+}
+
 /* A/B wipe labels */
 .color-wipe-label {
     position: absolute;
-    bottom: 12px;
-    font-size: 0.65rem;
+    bottom: 14px;
+    font-size: 0.68rem;
     font-family: monospace;
     font-weight: 800;
-    background: rgba(0, 0, 0, 0.75);
-    padding: 2px 7px;
-    border-radius: 3px;
-    letter-spacing: 1px;
+    background: rgba(4, 6, 4, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 4px 9px;
+    border-radius: 4px;
+    letter-spacing: 1.2px;
     z-index: 10;
     pointer-events: none;
-    transition: right 0.05s linear, left 0.05s linear;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .color-wipe-label--raw {
+    left: 14px;
     color: rgba(255, 255, 255, 0.85);
     border-left: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .color-wipe-label--graded {
+    right: 14px;
     color: #B3E32B;
     border-right: 2px solid #B3E32B;
 }
@@ -2856,24 +2951,28 @@
 .color-wheels-grid-4 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 10px;
+    align-items: stretch;
 }
 
 .color-wheel-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 7px;
+    justify-content: space-between;
+    gap: 6px;
     background: rgba(255, 255, 255, 0.025);
-    padding: 10px 8px 8px;
+    padding: 8px 8px 6px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     transition: border-color 0.2s ease;
+    min-height: 168px;
+    box-sizing: border-box;
 }
 
 .color-wheel-item:hover {
-    border-color: rgba(179, 227, 43, 0.2);
+    border-color: rgba(179, 227, 43, 0.25);
 }
 
 .wheel-top-row {
@@ -2881,6 +2980,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    height: 18px;
     padding: 0 2px;
 }
 
@@ -2888,7 +2988,7 @@
     background: transparent;
     border: none;
     color: rgba(255, 255, 255, 0.35);
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1;
     cursor: pointer;
     padding: 0 2px;
@@ -2901,20 +3001,28 @@
 }
 
 .wheel-name {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     font-family: monospace;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
 }
 
-/* Wheel disc â€” large enough for precise dragging */
+/* Wheel disc — large enough for precise dragging, fixed symmetrical size */
 .wheel-disc {
     position: relative;
-    width: 88px;
-    height: 88px;
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
     border-radius: 50%;
-    /* Chromatic conic gradient â€” true color wheel */
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    /* Chromatic conic gradient — true color wheel */
     background: conic-gradient(
         from 0deg,
         hsl(0, 100%, 55%),
@@ -2933,7 +3041,7 @@
     );
     border: 2px solid rgba(255, 255, 255, 0.12);
     box-shadow:
-        inset 0 0 0 18px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 16px rgba(0, 0, 0, 0.25),
         0 4px 16px rgba(0, 0, 0, 0.6);
     cursor: crosshair;
     flex-shrink: 0;

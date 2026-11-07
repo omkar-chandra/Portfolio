@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useMemo } from 'react';
 
 interface HexColorPickerProps {
   label?: string;
-  value: string;
+  value?: string | null;
   onChange: (color: string) => void;
   presetColors?: string[];
   className?: string;
@@ -21,7 +21,7 @@ const DEFAULT_PRESETS = [
 ];
 
 // Utility: normalize any string to #RRGGBB format
-function normalizeHex(val: string): string {
+function normalizeHex(val?: string | null): string {
   if (!val) return '#B3E32B';
   let hex = val.trim();
   if (hex.startsWith('rgba') || hex.startsWith('rgb')) {

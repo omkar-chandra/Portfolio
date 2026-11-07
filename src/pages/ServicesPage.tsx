@@ -42,7 +42,6 @@ const ServicesPage: FC = () => {
               softwareBadge="Vector & Layout Engine"
               softwareIcon={SoftwareIcons.illustrator}
               title="Graphic & Brand Design"
-              subtitle="Interactive design artboard: Craft logos, typography hierarchies, geometric compositions, and vector design systems in real-time."
               tags={['Brand Identity', 'Typography', 'Vector Artboard', 'Vector Export']}
               contactServiceQuery="Graphic Design"
             >
@@ -56,7 +55,6 @@ const ServicesPage: FC = () => {
               softwareBadge="Premiere Pro Lab"
               softwareIcon={SoftwareIcons.premierePro}
               title="Cinematic Video Editing"
-              subtitle="Interactive multitrack video editor: Scrub 4K footage, apply live razor cuts, customize on-screen text overlays, and trigger Foley audio SFX."
               tags={['4K Timeline', 'Razor Cut Tool', 'Text Overlay', 'Audio Mastering']}
               contactServiceQuery="Video Editing"
             >
@@ -70,7 +68,6 @@ const ServicesPage: FC = () => {
               softwareBadge="After Effects Engine"
               softwareIcon={SoftwareIcons.afterEffects}
               title="Motion Graphics & Dynamics"
-              subtitle="Interactive keyframe motion engine: Animate cyber rigs, kinetic typography, and 10 customizable motion graphics elements with scrubbable keyframe timeline and live glow physics."
               tags={['Kinetic Typo', '10 Motion Elements', 'Interactive Scrub Timeline', 'Rig Animation']}
               contactServiceQuery="Motion Graphics"
             >
@@ -84,7 +81,6 @@ const ServicesPage: FC = () => {
               softwareBadge="DaVinci Resolve Suite"
               softwareIcon={SoftwareIcons.davinci}
               title="Cinematic Color Grading"
-              subtitle="Interactive color grading suite: Test 5 raw production shots, switch curated film LUTs, manipulate 3-way color wheels, and wipe before/after with live split-screen."
               tags={['5 Raw Images', 'Split Wipe Slider', 'Film LUT Packs', '3-Way Color Wheels']}
               contactServiceQuery="Color Grading"
             >

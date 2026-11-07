@@ -18,44 +18,53 @@ const RAW_SHOTS: RawImageShot[] = [
   {
     id: 'shot-1',
     shotNumber: '01',
-    title: 'Studio Portrait Raw',
-    genre: 'High Fashion Editorial',
-    url: 'https://res.cloudinary.com/dlxlnvwuc/image/upload/v1789542318/Raw_1.jpg',
+    title: 'Raw Frame 01',
+    genre: 'Cinema Raw',
+    url: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Raw%20(1).jpg?updatedAt=1793610238668',
     defaultLut: 'teal-orange',
   },
   {
     id: 'shot-2',
     shotNumber: '02',
-    title: 'Cinematic Urban Frame',
-    genre: 'Street Documentary',
-    url: 'https://res.cloudinary.com/dlxlnvwuc/image/upload/v1789542317/Raw_2.jpg',
+    title: 'Raw Frame 02',
+    genre: 'Cinema Raw',
+    url: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Raw%20(2).jpg?updatedAt=1793610238670',
     defaultLut: 'cyberpunk',
   },
   {
     id: 'shot-3',
     shotNumber: '03',
-    title: 'Low-Key Moody Atmosphere',
-    genre: 'Narrative Film',
-    url: 'https://res.cloudinary.com/dlxlnvwuc/image/upload/v1789542317/Raw_3.jpg',
+    title: 'Raw Frame 03',
+    genre: 'Cinema Raw',
+    url: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Raw%20(3).jpg?updatedAt=1793610238671',
     defaultLut: 'moody-film',
   },
   {
     id: 'shot-4',
     shotNumber: '04',
-    title: 'Golden Hour Silhouette',
-    genre: 'Commercial Landscape',
-    url: 'https://res.cloudinary.com/dlxlnvwuc/image/upload/v1789542317/Raw_4.jpg',
+    title: 'Raw Frame 04',
+    genre: 'Cinema Raw',
+    url: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Raw%20(4).jpg?updatedAt=1793610238670',
     defaultLut: 'golden-hour',
   },
   {
     id: 'shot-5',
     shotNumber: '05',
-    title: 'Cinema Exterior Night',
-    genre: 'Action Sequence',
-    url: 'https://res.cloudinary.com/dlxlnvwuc/image/upload/v1789542317/Raw_5.jpg',
+    title: 'Raw Frame 05',
+    genre: 'Cinema Raw',
+    url: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Raw%20(5).jpg?updatedAt=1793610234113',
     defaultLut: 'bleach-bypass',
   },
+  {
+    id: 'shot-6',
+    shotNumber: '06',
+    title: 'Raw Frame 06',
+    genre: 'Cinema Raw',
+    url: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Raw%20(6).jpg?updatedAt=1793610238672',
+    defaultLut: 'emerald-matrix',
+  },
 ];
+
 
 interface LUTPreset {
   id: string;
@@ -78,6 +87,7 @@ interface LUTPreset {
     grayscale?: number;
     sepia?: number;
     customHue?: number;
+    toneOverlay?: string;
   };
 }
 
@@ -88,19 +98,20 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Hollywood 35mm',
     description: 'Deep cyan shadows with luminous amber highlights and punchy contrast.',
     colorGrade: {
-      exposure: 0.25,
-      contrast: 135,
-      highlights: 25,
-      shadows: -20,
-      saturation: 140,
-      temperature: 35,
-      tint: -25,
-      vignette: 35,
-      liftOffset: { x: -0.4, y: 0.3, level: -12 },
-      gammaOffset: { x: -0.1, y: 0.1, level: 4 },
-      gainOffset: { x: 0.45, y: -0.2, level: 18 },
+      exposure: 0.10,
+      contrast: 118,
+      highlights: 16,
+      shadows: -10,
+      saturation: 115,
+      temperature: 16,
+      tint: -8,
+      vignette: 20,
+      liftOffset: { x: -0.25, y: 0.20, level: -6 },
+      gammaOffset: { x: 0.05, y: -0.05, level: 2 },
+      gainOffset: { x: 0.25, y: -0.15, level: 8 },
       offsetVal: { x: 0, y: 0, level: 0 },
-      customHue: -15,
+      customHue: 0,
+      toneOverlay: 'linear-gradient(135deg, rgba(255, 170, 50, 0.10) 0%, rgba(0, 165, 195, 0.12) 100%)',
     },
   },
   {
@@ -109,19 +120,20 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Sci-Fi Night',
     description: 'Electric lime and saturated magenta highlights with deep crushed blacks.',
     colorGrade: {
-      exposure: 0.2,
-      contrast: 145,
-      highlights: 40,
-      shadows: -30,
-      saturation: 170,
-      temperature: -40,
-      tint: 55,
-      vignette: 45,
-      liftOffset: { x: 0.35, y: 0.4, level: -18 },
-      gammaOffset: { x: -0.3, y: 0.2, level: 2 },
-      gainOffset: { x: -0.25, y: -0.4, level: 22 },
-      offsetVal: { x: 0.1, y: 0, level: 0 },
-      customHue: 30,
+      exposure: 0.06,
+      contrast: 128,
+      highlights: 24,
+      shadows: -20,
+      saturation: 130,
+      temperature: -10,
+      tint: 16,
+      vignette: 30,
+      liftOffset: { x: -0.20, y: 0.22, level: -10 },
+      gammaOffset: { x: 0.10, y: -0.08, level: 2 },
+      gainOffset: { x: 0.18, y: -0.18, level: 12 },
+      offsetVal: { x: 0, y: 0, level: 0 },
+      customHue: -2,
+      toneOverlay: 'linear-gradient(135deg, rgba(255, 0, 128, 0.08) 0%, rgba(0, 230, 255, 0.10) 100%)',
     },
   },
   {
@@ -130,19 +142,21 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Analog Film',
     description: 'Creamy lifted blacks, organic olive mids, and timeless warm skin tones.',
     colorGrade: {
-      exposure: -0.05,
-      contrast: 112,
-      highlights: -15,
-      shadows: 20,
-      saturation: 95,
-      temperature: 20,
-      tint: 10,
-      vignette: 30,
-      liftOffset: { x: -0.1, y: -0.15, level: 14 },
-      gammaOffset: { x: 0.12, y: 0.1, level: 0 },
-      gainOffset: { x: 0.25, y: -0.1, level: -4 },
+      exposure: 0.04,
+      contrast: 106,
+      highlights: -8,
+      shadows: 12,
+      saturation: 104,
+      temperature: 14,
+      tint: 6,
+      vignette: 16,
+      liftOffset: { x: 0.05, y: 0.02, level: 8 },
+      gammaOffset: { x: 0.08, y: -0.04, level: 0 },
+      gainOffset: { x: 0.12, y: -0.06, level: -2 },
       offsetVal: { x: 0, y: 0, level: 0 },
-      sepia: 18,
+      sepia: 8,
+      customHue: 0,
+      toneOverlay: 'radial-gradient(ellipse at 50% 50%, rgba(255, 240, 220, 0.08) 0%, rgba(70, 60, 40, 0.06) 100%)',
     },
   },
   {
@@ -151,19 +165,21 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Warm Sunlight',
     description: 'Radiant amber glow, warm sun-kissed skin, and soft highlight roll-off.',
     colorGrade: {
-      exposure: 0.35,
-      contrast: 120,
-      highlights: 30,
-      shadows: 8,
-      saturation: 145,
-      temperature: 70,
-      tint: 15,
-      vignette: 25,
-      liftOffset: { x: 0.25, y: -0.2, level: 2 },
-      gammaOffset: { x: 0.3, y: -0.25, level: 10 },
-      gainOffset: { x: 0.45, y: -0.35, level: 20 },
-      offsetVal: { x: 0.1, y: -0.1, level: 0 },
-      sepia: 28,
+      exposure: 0.16,
+      contrast: 114,
+      highlights: 20,
+      shadows: 6,
+      saturation: 122,
+      temperature: 32,
+      tint: 8,
+      vignette: 18,
+      liftOffset: { x: 0.12, y: -0.08, level: 2 },
+      gammaOffset: { x: 0.20, y: -0.14, level: 6 },
+      gainOffset: { x: 0.30, y: -0.22, level: 12 },
+      offsetVal: { x: 0, y: 0, level: 0 },
+      sepia: 14,
+      customHue: -1,
+      toneOverlay: 'linear-gradient(180deg, rgba(255, 140, 30, 0.14) 0%, rgba(255, 210, 80, 0.08) 100%)',
     },
   },
   {
@@ -172,19 +188,20 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Gritty Action',
     description: 'Desaturated tones with hard silvery contrast inspired by action thrillers.',
     colorGrade: {
-      exposure: 0.15,
-      contrast: 155,
-      highlights: 42,
-      shadows: -28,
-      saturation: 50,
-      temperature: -15,
-      tint: -12,
-      vignette: 50,
-      liftOffset: { x: -0.25, y: 0.15, level: -16 },
+      exposure: 0.08,
+      contrast: 130,
+      highlights: 24,
+      shadows: -16,
+      saturation: 72,
+      temperature: -6,
+      tint: -4,
+      vignette: 30,
+      liftOffset: { x: -0.10, y: 0.08, level: -8 },
       gammaOffset: { x: 0, y: 0, level: 0 },
-      gainOffset: { x: 0.15, y: -0.15, level: 18 },
+      gainOffset: { x: 0.08, y: -0.06, level: 10 },
       offsetVal: { x: 0, y: 0, level: 0 },
-      customHue: 10,
+      customHue: 0,
+      toneOverlay: 'linear-gradient(180deg, rgba(200, 220, 230, 0.10) 0%, rgba(0, 0, 0, 0.12) 100%)',
     },
   },
   {
@@ -193,19 +210,20 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Silver Halide B&W',
     description: 'High-contrast silver black & white grade with velvety shadow tones.',
     colorGrade: {
-      exposure: 0.1,
-      contrast: 160,
-      highlights: 35,
-      shadows: -25,
+      exposure: 0.06,
+      contrast: 136,
+      highlights: 20,
+      shadows: -18,
       saturation: 0,
       temperature: 0,
       tint: 0,
-      vignette: 55,
-      liftOffset: { x: 0, y: 0, level: -15 },
+      vignette: 35,
+      liftOffset: { x: 0, y: 0, level: -10 },
       gammaOffset: { x: 0, y: 0, level: 0 },
-      gainOffset: { x: 0, y: 0, level: 20 },
+      gainOffset: { x: 0, y: 0, level: 14 },
       offsetVal: { x: 0, y: 0, level: 0 },
       grayscale: 100,
+      customHue: 0,
     },
   },
   {
@@ -214,19 +232,20 @@ const LUT_PACKS: LUTPreset[] = [
     badge: 'Cyber Green',
     description: 'Stylized deep green midtones, cool lifted shadows, and acid neon accents.',
     colorGrade: {
-      exposure: 0.1,
-      contrast: 135,
-      highlights: 25,
-      shadows: -15,
-      saturation: 135,
-      temperature: -25,
-      tint: -45,
-      vignette: 40,
-      liftOffset: { x: -0.3, y: 0.4, level: -8 },
-      gammaOffset: { x: -0.2, y: 0.3, level: 6 },
-      gainOffset: { x: -0.1, y: 0.4, level: 15 },
-      offsetVal: { x: -0.1, y: 0.2, level: 0 },
-      customHue: 85,
+      exposure: 0.05,
+      contrast: 122,
+      highlights: 12,
+      shadows: -12,
+      saturation: 110,
+      temperature: -10,
+      tint: -18,
+      vignette: 26,
+      liftOffset: { x: -0.16, y: 0.24, level: -6 },
+      gammaOffset: { x: -0.08, y: 0.14, level: 2 },
+      gainOffset: { x: -0.06, y: 0.18, level: 8 },
+      offsetVal: { x: 0, y: 0, level: 0 },
+      customHue: 4,
+      toneOverlay: 'linear-gradient(180deg, rgba(16, 60, 36, 0.14) 0%, rgba(6, 30, 18, 0.18) 100%)',
     },
   },
   {
@@ -342,6 +361,9 @@ const ColorWheel: FC<{
         }}
         title="Drag to shift hue"
         role="slider"
+        aria-valuenow={Math.round(Math.hypot(value.x, value.y) * 100)}
+        aria-valuemin={0}
+        aria-valuemax={100}
         aria-label={`${label} color wheel`}
       >
         {/* Dark center mask so colors don't compete with reticle */}
@@ -375,27 +397,30 @@ export const ColorGradingStudio: FC = () => {
   const [selectedShotId, setSelectedShotId] = useState<string>(RAW_SHOTS[0].id);
   const currentShot = RAW_SHOTS.find((s) => s.id === selectedShotId) || RAW_SHOTS[0];
 
-  const [activeInspectorTab, setActiveInspectorTab] = useState<'luts' | 'wheels' | 'primary'>('luts');
+  const [activeInspectorTab, setActiveInspectorTab] = useState<'wheels' | 'luts' | 'primary'>('wheels');
   const [activeLutId, setActiveLutId] = useState<string>('teal-orange');
+  const [activeToneOverlay, setActiveToneOverlay] = useState<string | null>(
+    'linear-gradient(135deg, rgba(255, 170, 50, 0.10) 0%, rgba(0, 165, 195, 0.12) 100%)'
+  );
 
-  // Primary parameters
-  const [exposure, setExposure] = useState<number>(0.25);
-  const [contrast, setContrast] = useState<number>(135);
-  const [highlights, setHighlights] = useState<number>(25);
-  const [shadows, setShadows] = useState<number>(-20);
-  const [saturation, setSaturation] = useState<number>(140);
-  const [temperature, setTemperature] = useState<number>(35);
-  const [tint, setTint] = useState<number>(-25);
-  const [vignette, setVignette] = useState<number>(35);
+  // Primary parameters (calibrated to default Teal & Orange LUT)
+  const [exposure, setExposure] = useState<number>(0.10);
+  const [contrast, setContrast] = useState<number>(118);
+  const [highlights, setHighlights] = useState<number>(16);
+  const [shadows, setShadows] = useState<number>(-10);
+  const [saturation, setSaturation] = useState<number>(115);
+  const [temperature, setTemperature] = useState<number>(16);
+  const [tint, setTint] = useState<number>(-8);
+  const [vignette, setVignette] = useState<number>(20);
   const [grayscale, setGrayscale] = useState<number>(0);
   const [sepia, setSepia] = useState<number>(0);
-  const [customHue, setCustomHue] = useState<number>(-15);
-  const [customTintHex, setCustomTintHex] = useState<string>('#B3E32B');
+  const [customHue, setCustomHue] = useState<number>(0);
+  const [customTintHex, setCustomTintHex] = useState<string | null>(null);
 
   // 4-Way Color Wheels
-  const [lift, setLift] = useState<WheelState>({ x: -0.4, y: 0.3, level: -12 });
-  const [gamma, setGamma] = useState<WheelState>({ x: -0.1, y: 0.1, level: 4 });
-  const [gain, setGain] = useState<WheelState>({ x: 0.45, y: -0.2, level: 18 });
+  const [lift, setLift] = useState<WheelState>({ x: -0.25, y: 0.20, level: -6 });
+  const [gamma, setGamma] = useState<WheelState>({ x: 0.05, y: -0.05, level: 2 });
+  const [gain, setGain] = useState<WheelState>({ x: 0.25, y: -0.15, level: 8 });
   const [offset, setOffset] = useState<WheelState>({ x: 0, y: 0, level: 0 });
 
   // Compare mode
@@ -423,13 +448,16 @@ export const ColorGradingStudio: FC = () => {
     setGrayscale(lut.colorGrade.grayscale || 0);
     setSepia(lut.colorGrade.sepia || 0);
     setCustomHue(lut.colorGrade.customHue || 0);
+    setActiveToneOverlay(lut.colorGrade.toneOverlay || null);
+    setCustomTintHex(null);
   };
 
   // Reset to Raw
   const handleResetToRaw = () => {
     applyLut(LUT_PACKS[LUT_PACKS.length - 1]);
     setActiveLutId('flat-log');
-    setCustomTintHex('#B3E32B');
+    setCustomTintHex(null);
+    setActiveToneOverlay(null);
     setSplitPosition(50);
   };
 
@@ -438,8 +466,9 @@ export const ColorGradingStudio: FC = () => {
     const computedBrightness = Math.round(100 + exposure * 35 + (highlights + shadows) * 0.15 + offset.level * 0.4);
     const computedContrast = Math.round(contrast + (gain.level - lift.level) * 0.2);
     const computedSaturation = grayscale > 0 ? 0 : saturation;
-    // Hue: temperature shifts red/blue axis, tint shifts green/magenta axis
-    const tempHueShift = Math.round(customHue + temperature * 0.25 + tint * 0.2 + (gain.x * 24) + (lift.x * -18));
+    // Keep hue shift subtle and bounded to protect natural skin tones
+    const rawShift = customHue + temperature * 0.18 + tint * 0.15 + (gain.x * 14) + (lift.x * -10);
+    const tempHueShift = Math.max(-14, Math.min(14, Math.round(rawShift)));
     const computedSepia = sepia;
     const computedGray = grayscale;
 
@@ -559,16 +588,16 @@ export const ColorGradingStudio: FC = () => {
               className="color-img color-img--raw"
             />
 
-            {/* Layer 2: Graded Image with Split Wipe */}
+            {/* Layer 2: Graded Image with Split Wipe (Left = RAW base, Right = Graded LUT) */}
             <div
               className="color-graded-layer"
               style={{
                 clipPath:
                   compareMode === 'raw-only'
-                    ? 'inset(0 100% 0 0)'
+                    ? 'inset(0 0 0 100%)'
                     : compareMode === 'graded-only'
                     ? 'inset(0 0 0 0)'
-                    : `inset(0 ${100 - splitPosition}% 0 0)`,
+                    : `inset(0 0 0 ${splitPosition}%)`,
               }}
             >
               <img
@@ -577,6 +606,17 @@ export const ColorGradingStudio: FC = () => {
                 className="color-img color-img--graded"
                 style={{ filter: gradedFilter }}
               />
+
+              {/* Dynamic Film LUT Tone Overlay (Split-Toning) */}
+              {activeToneOverlay && (
+                <div
+                  className="color-lut-tone-overlay"
+                  style={{
+                    background: activeToneOverlay,
+                  }}
+                  aria-hidden="true"
+                />
+              )}
 
               {/* Live Vignette */}
               {vignette > 0 && (
@@ -603,10 +643,10 @@ export const ColorGradingStudio: FC = () => {
             {/* A/B Labels when in split mode */}
             {compareMode === 'split' && (
               <>
-                <div className="color-wipe-label color-wipe-label--raw" style={{ right: `${100 - splitPosition + 2}%` }}>
+                <div className="color-wipe-label color-wipe-label--raw">
                   RAW
                 </div>
-                <div className="color-wipe-label color-wipe-label--graded" style={{ left: `${splitPosition + 2}%` }}>
+                <div className="color-wipe-label color-wipe-label--graded">
                   {activeLutId === 'flat-log' ? 'LOG' : 'LUT'}
                 </div>
               </>
@@ -669,7 +709,7 @@ export const ColorGradingStudio: FC = () => {
             <div className="scope-grade-info">
               <div className="scope-grade-row">
                 <span className="scope-grade-key">EXP</span>
-                <span className="scope-grade-val">{exposure > 0 ? `+${exposure}` : exposure} EV</span>
+                <span className="scope-grade-val">{exposure >= 0 ? `+${exposure.toFixed(2)}` : exposure.toFixed(2)} EV</span>
               </div>
               <div className="scope-grade-row">
                 <span className="scope-grade-key">SAT</span>
@@ -693,20 +733,20 @@ export const ColorGradingStudio: FC = () => {
           <div className="inspector-tabs">
             <button
               type="button"
-              className={`inspector-tab ${activeInspectorTab === 'luts' ? 'is-active' : ''}`}
-              onClick={() => setActiveInspectorTab('luts')}
-            >
-              <SparklesIcon size={13} />
-              <span>LUT Packs</span>
-            </button>
-
-            <button
-              type="button"
               className={`inspector-tab ${activeInspectorTab === 'wheels' ? 'is-active' : ''}`}
               onClick={() => setActiveInspectorTab('wheels')}
             >
               <PaletteIcon size={13} />
               <span>Color Wheels</span>
+            </button>
+
+            <button
+              type="button"
+              className={`inspector-tab ${activeInspectorTab === 'luts' ? 'is-active' : ''}`}
+              onClick={() => setActiveInspectorTab('luts')}
+            >
+              <SparklesIcon size={13} />
+              <span>LUT Packs</span>
             </button>
 
             <button
@@ -720,42 +760,6 @@ export const ColorGradingStudio: FC = () => {
           </div>
 
           <div className="inspector-body">
-            {/* TAB 1: LUT PACKS */}
-            {activeInspectorTab === 'luts' && (
-              <div className="inspector-group">
-                <div className="lut-header-row">
-                  <span className="control-label">Cinema 3D LUT Packs</span>
-                  <button
-                    type="button"
-                    className="mini-text-btn"
-                    onClick={handleResetToRaw}
-                    title="Reset LUT to Flat Log"
-                  >
-                    Reset LUT
-                  </button>
-                </div>
-
-                <div className="lut-list">
-                  {LUT_PACKS.map((lut) => (
-                    <button
-                      key={lut.id}
-                      type="button"
-                      className={`lut-card ${activeLutId === lut.id ? 'is-active' : ''}`}
-                      onClick={() => applyLut(lut)}
-                    >
-                      <div className="lut-card__info">
-                        <div className="lut-card__name-row">
-                          <span className="lut-card__name">{lut.name}</span>
-                          <span className="lut-card__badge">{lut.badge}</span>
-                        </div>
-                        <span className="lut-card__desc">{lut.description}</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* TAB 2: 4-WAY COLOR WHEELS */}
             {activeInspectorTab === 'wheels' && (
               <div className="inspector-group">
@@ -818,6 +822,42 @@ export const ColorGradingStudio: FC = () => {
                         X:{w.val.x > 0 ? `+${w.val.x}` : w.val.x} Y:{w.val.y > 0 ? `+${w.val.y}` : w.val.y}
                       </span>
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 1: LUT PACKS */}
+            {activeInspectorTab === 'luts' && (
+              <div className="inspector-group">
+                <div className="lut-header-row">
+                  <span className="control-label">Cinema 3D LUT Packs</span>
+                  <button
+                    type="button"
+                    className="mini-text-btn"
+                    onClick={handleResetToRaw}
+                    title="Reset LUT to Flat Log"
+                  >
+                    Reset LUT
+                  </button>
+                </div>
+
+                <div className="lut-list">
+                  {LUT_PACKS.map((lut) => (
+                    <button
+                      key={lut.id}
+                      type="button"
+                      className={`lut-card ${activeLutId === lut.id ? 'is-active' : ''}`}
+                      onClick={() => applyLut(lut)}
+                    >
+                      <div className="lut-card__info">
+                        <div className="lut-card__name-row">
+                          <span className="lut-card__name">{lut.name}</span>
+                          <span className="lut-card__badge">{lut.badge}</span>
+                        </div>
+                        <span className="lut-card__desc">{lut.description}</span>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -929,7 +969,7 @@ export const ColorGradingStudio: FC = () => {
 
                 <HexColorPicker
                   label="Color Cast / Custom Tint"
-                  value={customTintHex}
+                  value={customTintHex || '#B3E32B'}
                   onChange={(col) => setCustomTintHex(col)}
                   defaultValue="#B3E32B"
                 />
@@ -942,7 +982,7 @@ export const ColorGradingStudio: FC = () => {
       {/* Bottom Filmstrip Shot Selector */}
       <div className="color-filmstrip-area">
         <div className="filmstrip-header">
-          <span className="filmstrip-title">Timeline Gallery // 5 Raw Shots</span>
+          <span className="filmstrip-title">Timeline Gallery // {RAW_SHOTS.length} Raw Shots</span>
           <span className="filmstrip-subtitle">Select a frame to grade</span>
         </div>
 

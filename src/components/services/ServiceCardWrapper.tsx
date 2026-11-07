@@ -9,7 +9,7 @@ interface ServiceCardWrapperProps {
   softwareBadge: string;
   softwareIcon?: React.ReactNode;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   tags: string[];
   contactServiceQuery: string;
   onReset?: () => void;
@@ -88,7 +88,7 @@ export const ServiceCardWrapper: FC<ServiceCardWrapperProps> = ({
         <div className="service-studio-card__title-row">
           <div className="service-studio-card__title-group">
             <h3 className="service-studio-card__title">{title}</h3>
-            <p className="service-studio-card__subtitle">{subtitle}</p>
+            {subtitle && <p className="service-studio-card__subtitle">{subtitle}</p>}
           </div>
 
           <div className="service-studio-card__actions">

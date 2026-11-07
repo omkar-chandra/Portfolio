@@ -4,146 +4,168 @@ import { motion, AnimatePresence } from 'framer-motion';
 const INTRO_KEY = 'oc_intro_seen';
 
 const IntroAnimation: FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'logo' | 'name' | 'exit'>('logo');
+  const [phase, setPhase] = useState<'enter' | 'active' | 'exit'>('enter');
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('name'), 700);   // logo → name at 0.7 s
-    const t2 = setTimeout(() => setPhase('exit'), 1700);  // name hold → exit at 1.7 s
-    const t3 = setTimeout(() => {                          // fully done at 2.5 s
+    const t1 = setTimeout(() => setPhase('active'), 300);
+    const t2 = setTimeout(() => setPhase('exit'), 2450);
+    const t3 = setTimeout(() => {
       setDone(true);
       sessionStorage.setItem(INTRO_KEY, '1');
       onComplete();
-    }, 2500);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    }, 3000);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
   }, [onComplete]);
 
-  const nameFirst = 'OMKAR';
-  const nameLast = 'CHANDRA';
+  const smoothEase = [0.16, 1, 0.3, 1] as const;
+  const isExit = phase === 'exit';
+  const isActive = phase === 'active';
 
-  const particles = useMemo(() =>
-    Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 3}s`,
-      duration: `${2 + Math.random() * 3}s`,
-    })),
-    []);
+  const tickerItems = useMemo(
+    () => [
+      { text: 'OMKAR_CHANDRA', code: 'G.007' },
+      { text: 'MOTION_GRAPHICS', code: 'G.014' },
+      { text: 'BRAND_IDENTITY', code: 'G.021' },
+      { text: 'CINEMATICS', code: 'G.3015' },
+      { text: 'CREATIVE_DIRECTION', code: 'G.3040' },
+      { text: 'PORTFOLIO_2026', code: 'G.3088' },
+    ],
+    []
+  );
 
   return (
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="intro-overlay"
+          className="dich-intro-overlay"
           role="presentation"
           aria-hidden="true"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: 0.55, ease: smoothEase }}
         >
-          {/* Ambient particles */}
-          <div className="intro-particles">
-            {particles.map((p) => (
-              <span
-                key={p.id}
-                className="intro-particle"
-                style={{
-                  left: p.left,
-                  top: p.top,
-                  animationDelay: p.delay,
-                  animationDuration: p.duration,
-                }}
-              />
-            ))}
+          {/* ── Layer 1: Portfolio-Themed Dark Cinematic Background ── */}
+          <div className="dich-clouds-stage" aria-hidden="true">
+            <div className="dich-ambient-glow dich-ambient-glow--accent" />
+            <div className="dich-ambient-glow dich-ambient-glow--cyan" />
+            <div className="dich-dot-matrix" />
+            <div className="dich-clouds-vignette" />
           </div>
 
-          {/* Logo */}
-          <motion.div
-            className="intro-logo-wrap"
-            initial={{ scale: 0, opacity: 0, rotate: -20 }}
-            animate={
-              phase === 'logo'
-                ? { scale: 1, opacity: 1, rotate: 0 }
-                : phase === 'name'
-                  ? { scale: 0.55, opacity: 1, rotate: 0, y: -80 }
-                  : { scale: 0.3, opacity: 0, y: -200 }
-            }
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <img src="https://ik.imagekit.io/ocg/IMAGES/Logo/OC%20Logo.webp?updatedAt=1792695186045" alt="OC Logo" className="intro-logo" />
-            <div className="intro-logo-glow" />
-          </motion.div>
+          {/* ── Layer 2: HUD Viewport Frame (Portfolio Styling) ── */}
+          <div className="dich-viewport-frame" aria-hidden="true">
+            {/* Top center notch only */}
+            <div className="dich-hud-top">
+              <div className="dich-hud-top-bracket dich-hud-top-bracket--left" />
+              <div className="dich-notch dich-notch--top">
+                <span className="dich-pulse-dot" />
+                <span className="dich-notch-title">PORTFOLIO // 2026 // EDITION</span>
+              </div>
+              <div className="dich-hud-top-bracket dich-hud-top-bracket--right" />
+            </div>
 
-          {/* Name */}
+            {/* Corner brackets */}
+            <div className="dich-corner-bracket dich-corner-bracket--tl" />
+            <div className="dich-corner-bracket dich-corner-bracket--tr" />
+            <div className="dich-corner-bracket dich-corner-bracket--bl" />
+            <div className="dich-corner-bracket dich-corner-bracket--br" />
+
+            {/* Bottom ticker + coordinates */}
+            <div className="dich-hud-bottom">
+              <div className="dich-ticker-strip">
+                {tickerItems.map((item, idx) => (
+                  <span key={idx} className="dich-ticker-segment">
+                    <span className="dich-ticker-text">{item.text}</span>
+                    <span className="dich-ticker-sub">{item.code}</span>
+                  </span>
+                ))}
+              </div>
+              <div className="dich-notch dich-notch--bottom">
+                <span className="dich-coord-text">X.0243 // Y.0340</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Layer 3: Hero — Centered Logo on top, Full Name below ── */}
           <motion.div
-            className="intro-name"
-            initial={{ opacity: 0 }}
+            className="dich-hero-stage"
+            initial={{ opacity: 0, y: 20 }}
             animate={
-              phase === 'name'
-                ? { opacity: 1, y: 30 }
-                : phase === 'exit'
-                  ? { opacity: 0, y: -40 }
-                  : { opacity: 0, y: 60 }
+              isExit
+                ? { opacity: 0, y: -24, scale: 1.05 }
+                : isActive
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 0, y: 20, scale: 0.96 }
             }
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, ease: smoothEase }}
           >
-            <div className="intro-name__first">
-              {nameFirst.split('').map((char, i) => (
-                <motion.span
-                  key={`f-${i}`}
-                  className="intro-letter"
-                  initial={{ opacity: 0, y: 40, rotateX: -90 }}
-                  animate={
-                    phase !== 'logo'
-                      ? { opacity: 1, y: 0, rotateX: 0 }
-                      : { opacity: 0, y: 40, rotateX: -90 }
-                  }
-                  transition={{ delay: i * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </div>
-            <div className="intro-name__last">
-              {nameLast.split('').map((char, i) => (
-                <motion.span
-                  key={`l-${i}`}
-                  className="intro-letter intro-letter--accent"
-                  initial={{ opacity: 0, y: 40, rotateX: -90 }}
-                  animate={
-                    phase !== 'logo'
-                      ? { opacity: 1, y: 0, rotateX: 0 }
-                      : { opacity: 0, y: 40, rotateX: -90 }
-                  }
-                  transition={{ delay: 0.08 + i * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </div>
+            {/* Logo centered above the name */}
             <motion.div
-              className="intro-tagline"
-              initial={{ opacity: 0, width: 0 }}
+              className="dich-hero-badge"
+              initial={{ scale: 0.4, opacity: 0 }}
               animate={
-                phase === 'name'
-                  ? { opacity: 1, width: '100%' }
-                  : { opacity: 0, width: 0 }
+                isActive
+                  ? { scale: 1, opacity: 1 }
+                  : { scale: 0.4, opacity: 0 }
               }
-              transition={{ delay: 0.3, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 0.3, duration: 0.6, ease: smoothEase }}
             >
-              <span className="intro-tagline__line" />
-              <span className="intro-tagline__text">Video Editor & Graphic Designer</span>
-              <span className="intro-tagline__line" />
+              <img
+                src={`${process.env.PUBLIC_URL || ''}/favicon.ico`}
+                alt="OC Logo"
+                className="dich-badge-logo"
+                loading="eager"
+              />
             </motion.div>
+
+            {/* Full Name: OMKAR CHANDRA — two lines, no splitting */}
+            <div className="dich-name-block">
+              {/* OMKAR */}
+              <div className="dich-name-row" aria-label="Omkar">
+                {'OMKAR'.split('').map((char, i) => (
+                  <motion.span
+                    key={`f-${i}`}
+                    className="dich-3d-char"
+                    initial={{ y: '110%', opacity: 0 }}
+                    animate={isActive ? { y: '0%', opacity: 1 } : { y: '110%', opacity: 0 }}
+                    transition={{ delay: 0.38 + i * 0.055, duration: 0.52, ease: smoothEase }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </div>
+
+              {/* CHANDRA */}
+              <div className="dich-name-row" aria-label="Chandra">
+                {'CHANDRA'.split('').map((char, i) => (
+                  <motion.span
+                    key={`l-${i}`}
+                    className="dich-3d-char"
+                    initial={{ y: '110%', opacity: 0 }}
+                    animate={isActive ? { y: '0%', opacity: 1 } : { y: '110%', opacity: 0 }}
+                    transition={{ delay: 0.58 + i * 0.048, duration: 0.52, ease: smoothEase }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
           </motion.div>
 
-          {/* Wipe line */}
-          {phase === 'exit' && (
+          {/* ── Layer 4: Exit Dissolve ── */}
+          {isExit && (
             <motion.div
-              className="intro-wipe"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="dich-exit-shutter"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, ease: [0.77, 0, 0.175, 1] }}
             />
           )}
         </motion.div>

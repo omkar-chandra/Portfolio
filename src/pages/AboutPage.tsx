@@ -4,6 +4,60 @@ import { FloatingShapes, PageTransition } from '../components';
 import { skillGroups, SoftwareIcons, education, experience } from '../data';
 import { SkillItem } from '../types';
 
+/* ── Hover image URLs (preloaded) ── */
+const HOVER_IMAGES = [
+  'https://ik.imagekit.io/ocg/IMAGES/Pics/Main_hover%20(1).webp?updatedAt=1793897869787',
+  'https://ik.imagekit.io/ocg/IMAGES/Pics/Main_hover%20(2).webp?updatedAt=1793897869686',
+  'https://ik.imagekit.io/ocg/IMAGES/Pics/Main_hover%20(3).webp?updatedAt=1793897867618',
+];
+
+/* ── Preload hover images on mount ── */
+const usePreloadImages = (urls: string[]) => {
+  useEffect(() => {
+    urls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+};
+
+/* ── Landon Norris-style hover image reveal on @omkar_chandra ID text ── */
+interface HoverImageRevealProps {
+  visible: boolean;
+  imageIdx: number;
+  animKey: number;
+}
+const HoverImageReveal: FC<HoverImageRevealProps> = ({ visible, imageIdx, animKey }) => {
+  return (
+    <div className="about-hover-reveal-wrap" aria-hidden="true">
+      <AnimatePresence mode="wait">
+        {visible && (
+          <motion.div
+            key={animKey}
+            className="about-hover-reveal-img-wrap"
+            initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0 }}
+            animate={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
+            exit={{ clipPath: 'inset(0% 0% 100% 0%)', opacity: 0 }}
+            transition={{
+              clipPath: { duration: 0.55, ease: [0.76, 0, 0.24, 1] },
+              opacity: { duration: 0.3, ease: 'easeOut' },
+            }}
+          >
+            <img
+              src={HOVER_IMAGES[imageIdx]}
+              alt="Omkar Chandra hover"
+              className="about-hover-reveal-img"
+              draggable={false}
+            />
+            {/* Glass shimmer overlay */}
+            <div className="about-hover-reveal-sheen" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 /* ── High-Performance Pixel Reveal Image (with interactive Hover Effect) ── */
 const PixelRevealImage: FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className = '' }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -48,56 +102,84 @@ const PixelRevealImage: FC<{ src: string; alt: string; className?: string }> = (
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    const rect = wrap.getBoundingClientRect();
-    const W = rect.width || img.naturalWidth || 400;
-    const H = rect.height || img.naturalHeight || 500;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let W = 0;
+    let H = 0;
+    let dpr = 1;
+    let cols = 0;
+    let rows = 0;
+    let total = 0;
+    let cellW = 0;
+    let cellH = 0;
+    let maxDim = 1;
+    let srcX = 0, srcY = 0, srcW = 1, srcH = 1;
+    let cellDelays = new Float32Array(0);
+    let noiseValues = new Float32Array(0);
+    let hoverState = new Float32Array(0);
 
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    canvas.style.width = `${W}px`;
-    canvas.style.height = `${H}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const setupDimensions = () => {
+      const rect = wrap.getBoundingClientRect();
+      const currentW = Math.round(rect.width) || img.naturalWidth || 400;
+      const currentH = Math.round(rect.height) || img.naturalHeight || 500;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Calculate exact object-fit: cover source rectangle (top center crop)
-    const imgAspect = (img.naturalWidth || 1) / (img.naturalHeight || 1);
-    const containerAspect = W / H;
-    let srcX = 0, srcY = 0, srcW = img.naturalWidth, srcH = img.naturalHeight;
-    if (imgAspect > containerAspect) {
-      srcW = img.naturalHeight * containerAspect;
-      srcX = (img.naturalWidth - srcW) / 2;
-    } else {
-      srcH = img.naturalWidth / containerAspect;
-      srcY = 0; // top aligned
-    }
+      if (currentW === W && currentH === H) return;
 
-    // Grid configuration: ~18px tactile pixel blocks
-    const PIXEL_SIZE = 18;
-    const cols = Math.max(8, Math.ceil(W / PIXEL_SIZE));
-    const rows = Math.max(10, Math.ceil(H / PIXEL_SIZE));
-    const total = cols * rows;
-    const cellW = W / cols;
-    const cellH = H / rows;
-    const maxDim = Math.hypot(W, H) || 1;
+      W = currentW;
+      H = currentH;
 
-    // Precalculate wave distance & dither noise per cell
-    const cellDelays = new Float32Array(total);
-    const noiseValues = new Float32Array(total);
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const idx = r * cols + c;
-        const nx = c / (cols - 1 || 1);
-        const ny = r / (rows - 1 || 1);
-        const wave = nx * 0.6 + ny * 0.4;
-        const noise = (Math.sin(c * 12.9898 + r * 78.233) * 43758.5453) % 1;
-        const dither = (noise < 0 ? noise + 1 : noise) * 0.38;
-        cellDelays[idx] = (wave * 0.62 + dither * 0.38) * 0.6;
-        noiseValues[idx] = dither;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Calculate exact object-fit: cover source rectangle (top center crop)
+      const imgAspect = (img.naturalWidth || 1) / (img.naturalHeight || 1);
+      const containerAspect = W / H;
+      srcX = 0;
+      srcY = 0;
+      srcW = img.naturalWidth || 1;
+      srcH = img.naturalHeight || 1;
+      if (imgAspect > containerAspect) {
+        srcW = (img.naturalHeight || 1) * containerAspect;
+        srcX = ((img.naturalWidth || 1) - srcW) / 2;
+      } else {
+        srcH = (img.naturalWidth || 1) / containerAspect;
+        srcY = 0; // top aligned
       }
-    }
 
-    // Interactive mouse hover trail array
-    const hoverState = new Float32Array(total);
+      // Grid configuration: ~18px tactile pixel blocks
+      const PIXEL_SIZE = 18;
+      cols = Math.max(8, Math.ceil(W / PIXEL_SIZE));
+      rows = Math.max(10, Math.ceil(H / PIXEL_SIZE));
+      total = cols * rows;
+      cellW = W / cols;
+      cellH = H / rows;
+      maxDim = Math.hypot(W, H) || 1;
+
+      // Precalculate wave distance & dither noise per cell
+      cellDelays = new Float32Array(total);
+      noiseValues = new Float32Array(total);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const idx = r * cols + c;
+          const nx = c / (cols - 1 || 1);
+          const ny = r / (rows - 1 || 1);
+          const wave = nx * 0.6 + ny * 0.4;
+          const noise = (Math.sin(c * 12.9898 + r * 78.233) * 43758.5453) % 1;
+          const dither = (noise < 0 ? noise + 1 : noise) * 0.38;
+          cellDelays[idx] = (wave * 0.62 + dither * 0.38) * 0.6;
+          noiseValues[idx] = dither;
+        }
+      }
+
+      hoverState = new Float32Array(total);
+    };
+
+    setupDimensions();
+
+    const ro = new ResizeObserver(() => {
+      setupDimensions();
+    });
+    ro.observe(wrap);
 
     const INTRO_DURATION = 1400; // ms
     let startTime: number | null = null;
@@ -302,6 +384,7 @@ const PixelRevealImage: FC<{ src: string; alt: string; className?: string }> = (
     return () => {
       clearTimeout(timer);
       cancelAnimationFrame(rafId);
+      ro.disconnect();
       wrap.removeEventListener('mouseenter', onMouseEnter);
       wrap.removeEventListener('mousemove', onMouseMove);
       wrap.removeEventListener('mouseleave', onMouseLeave);
@@ -379,69 +462,70 @@ const GALLERY_IMAGES: GalleryImage[] = [
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Me%20&%20Bullet.webp?updatedAt=1792695072413',
     aspect: '4/3',
-    caption: 'Me, my Bullet, and the open hill roads.',
+    caption: 'Me and my Bullet on the hill roads.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Om%20&%20Arun.webp?updatedAt=1792695059053',
     aspect: '4/5',
-    caption: 'Brotherhood moments with Arun.',
+    caption: 'With Arun — a brother from another era.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Lamhe.webp?updatedAt=1792695041171',
     aspect: '16/9',
-    caption: 'Timeless memories captured in the hills.',
+    caption: 'Moments that the hills keep forever.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Veeru%20in%20Holi%202024.webp?updatedAt=1792695055426',
     aspect: '4/5',
-    caption: 'Holi 2024 — painted in colors with Veeru.',
+    caption: 'Holi 2024 — Veeru fully painted in color.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Ranikhet%20Mountain.webp?updatedAt=1792695069646',
     aspect: '4/3',
-    caption: 'Serene mountain vistas of Ranikhet.',
+    caption: 'Somewhere in the mountains of Ranikhet.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Me%20and%20Gang%20at%20Farewall.webp?updatedAt=1792695057870',
     aspect: '4/5',
-    caption: 'Farewell memories with the college gang.',
+    caption: 'Last day with the college gang.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Me%20Group%20of%20Circle.webp?updatedAt=1792695065741',
     aspect: '16/9',
-    caption: 'The inner circle — endless stories and laughs.',
+    caption: 'The inner circle — these guys never run out of stories.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Me%20as%20Art.webp?updatedAt=1792695051214',
     aspect: '4/5',
-    caption: 'Artistic portrait captured in natural light.',
+    caption: 'Against the old brick wall, just vibing.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Evening.webp?updatedAt=1792695060245',
     aspect: '4/3',
-    caption: 'Golden evening hues over the countryside.',
+    caption: 'That one evening the sky just went off.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Me.webp?updatedAt=1792695039652',
     aspect: '4/5',
-    caption: 'Quiet moments taking in the mountain breeze.',
+    caption: 'Lost in thought, surrounded by flowers.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Me%20&%20Guys%20At%20Naintial.webp?updatedAt=1792695064617',
     aspect: '16/9',
-    caption: 'Road trip adventures with the squad in Nainital.',
+    caption: 'Nainital trip with the squad.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/My%20Boat%20Buds.webp?updatedAt=1792695057868',
     aspect: '4/3',
-    caption: 'Lake days & boat rides with the boys.',
+    caption: 'My boAt earbuds — honestly one of the best buys.',
   },
   {
     src: 'https://ik.imagekit.io/ocg/IMAGES/Pics/Bhimtal%20Lake.webp?updatedAt=1792695052537',
     aspect: '4/5',
-    caption: 'Peaceful waters of Bhimtal Lake.',
+    caption: 'Still waters at Bhimtal.',
   },
 ];
+
 
 /* ── Single gallery card with 3D perspective tilt ── */
 const GalleryCard: FC<{
@@ -558,7 +642,7 @@ const DraggableCarousel: FC<{ onImageClick: (src: string, idx: number) => void }
   // Ribbon geometry & physics parameters
   const Y_EDGE = 36;       // Left & right anchor height (px)
   const BASE_SAG_CY = 72;  // Resting control point Cy (yields ~18px gentle sag in center)
-  const Y_BASE = 50;       // Base unshifted clip eyelet height (px)
+  const Y_BASE = 46;       // Base unshifted clip eyelet height (px) matching viewport + track padding and clip grommet center
 
   // Dynamic ribbon & pendulum physics simulation state
   const currentCx = useRef(0);
@@ -576,13 +660,15 @@ const DraggableCarousel: FC<{ onImageClick: (src: string, idx: number) => void }
 
   useEffect(() => {
     measureCardOffsets();
-    const t = setTimeout(measureCardOffsets, 150);
+    const t1 = setTimeout(measureCardOffsets, 100);
+    const t2 = setTimeout(measureCardOffsets, 350);
     const onResize = () => {
       measureCardOffsets();
     };
     window.addEventListener('resize', onResize);
     return () => {
-      clearTimeout(t);
+      clearTimeout(t1);
+      clearTimeout(t2);
       window.removeEventListener('resize', onResize);
     };
   }, [measureCardOffsets]);
@@ -655,7 +741,7 @@ const DraggableCarousel: FC<{ onImageClick: (src: string, idx: number) => void }
       const screenX = cur + cardOffset;
 
       // Only calculate cards within or near visible viewport buffer
-      if (screenX < -380 || screenX > viewportW + 380) {
+      if (screenX < -550 || screenX > viewportW + 550) {
         continue;
       }
 
@@ -1171,6 +1257,47 @@ const SkillsMarquee: FC = () => {
 const AboutPage: FC = () => {
   const [selectedModal, setSelectedModal] = useState<{ src: string; idx: number } | null>(null);
 
+  /* ── Preload hover images ── */
+  usePreloadImages(HOVER_IMAGES);
+
+  /* ── Hover image reveal state (linked to insta-link) ── */
+  const [hoverVisible, setHoverVisible]  = useState(false);
+  const [hoverImageIdx, setHoverImageIdx] = useState(0);
+  const [hoverAnimKey, setHoverAnimKey]  = useState(0);
+  const hoverCycleRef = useRef(0);
+  const touchTimerRef = useRef<number | null>(null);
+
+  const handleInstaEnter = useCallback(() => {
+    const next = (hoverCycleRef.current + 1) % HOVER_IMAGES.length;
+    hoverCycleRef.current = next;
+    setHoverImageIdx(next);
+    setHoverAnimKey((k) => k + 1);
+    setHoverVisible(true);
+  }, []);
+
+  const handleInstaLeave = useCallback(() => {
+    setHoverVisible(false);
+  }, []);
+
+  const handleTouchStart = useCallback(() => {
+    if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    const next = (hoverCycleRef.current + 1) % HOVER_IMAGES.length;
+    hoverCycleRef.current = next;
+    setHoverImageIdx(next);
+    setHoverAnimKey((k) => k + 1);
+    setHoverVisible(true);
+
+    touchTimerRef.current = window.setTimeout(() => {
+      setHoverVisible(false);
+    }, 1800);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    };
+  }, []);
+
   return (
     <PageTransition>
       <section className="page-hero">
@@ -1197,12 +1324,17 @@ const AboutPage: FC = () => {
                   src="https://ik.imagekit.io/ocg/IMAGES/Pics/PFP.webp?updatedAt=1792695074304"
                   alt="Omkar Chandra"
                 />
+                {/* @omkar_chandra interactive hover image reveal */}
+                <HoverImageReveal visible={hoverVisible} imageIdx={hoverImageIdx} animKey={hoverAnimKey} />
                 <a
                   href="https://www.instagram.com/omkar_chandra"
                   target="_blank"
                   rel="noreferrer"
                   className="about-card__insta-link"
                   aria-label="Instagram Profile"
+                  onMouseEnter={handleInstaEnter}
+                  onMouseLeave={handleInstaLeave}
+                  onTouchStart={handleTouchStart}
                 />
               </div>
             </TiltCard>
